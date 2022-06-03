@@ -11,7 +11,7 @@ const router = express.Router();
 });
 */
 router.route("/").get(async function (req, resp) {
-  console.log("in")
+  console.log("in");
 
   let subscrip = await subscriptionBL.getSubscripts();
   return resp.json(subscrip);
@@ -21,7 +21,7 @@ router.route("/:id").get(async function (req, resp) {
   console.log("hii");
   let id = req.params.id;
   let subscr = await subscriptionBL.getSubscript(id);
-  console.log(subscr)
+  console.log(subscr);
   return resp.json(subscr);
 });
 
@@ -34,9 +34,9 @@ router.route("/").post(async function (req, resp) {
 router.route("/addMovie/:id").post(async function (req, resp) {
   let id = req.params.id;
   let movie = req.body.movie;
-  console.log(id)
+  console.log(id);
   console.log(movie);
-  let status = await subscriptionBL.addSubscriptMovie(id,movie);
+  let status = await subscriptionBL.addSubscriptMovie(id, movie);
   return resp.json(status);
 });
 

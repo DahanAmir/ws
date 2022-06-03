@@ -4,12 +4,9 @@ const memberDAL = require("../DAL/memberDAL");
 
 const subscriptionBL = require("./subscriptionBL");
 
-const deleteAll= async function () {
- 
+const deleteAll = async function () {
   memberModel.find({}).remove().exec();
-
-}
-
+};
 
 const getMembers = async function () {
   return new Promise((resolve, reject) => {
@@ -120,5 +117,5 @@ module.exports = {
   updateMember,
   deleteMember,
   getMember,
-  deleteAll
+  deleteAll,
 };

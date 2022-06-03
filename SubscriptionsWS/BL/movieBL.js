@@ -1,11 +1,9 @@
 const moviesModel = require("../mongoose/moviesModel");
 const movieDAL = require("../DAL/movieDAL");
 
-const deleteAll= async function () {
- 
-    moviesModel.find({}).remove().exec();
-
-}
+const deleteAll = async function () {
+  moviesModel.find({}).remove().exec();
+};
 
 const onload = async function () {
   if (true) {
@@ -102,5 +100,5 @@ module.exports = {
   createMovie,
   updateMovie,
   deleteSubscript,
-  deleteAll
+  deleteAll,
 };

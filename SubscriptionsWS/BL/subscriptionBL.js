@@ -9,7 +9,6 @@ const getSubscripts = function () {
       if (err) {
         reject(err);
       } else {
-        console.log(data);
         resolve(data);
       }
     });
@@ -17,10 +16,7 @@ const getSubscripts = function () {
 };
 
 const getSubscript = function (SubscriptId) {
-  console.log(SubscriptId);
 
-  console.log(SubscriptId);
-  console.log(SubscriptId);
   return new Promise((resolve, reject) => {
     subscriptionModel.find({ _id: SubscriptId }, function (err, data) {
       if (err) {
@@ -47,30 +43,17 @@ const createSubscript = function (obj) {
 };
 
 const addSubscriptMovie = async function (id, movie) {
-  console.log(id);
-  console.log(id);
-  console.log(id);
-
   let obj = await getSubscript(id);
   obj = obj[0];
-  console.log("------------------------------------------------");
-  console.log(obj);
-
-  console.log(movie);
-  console.log("------------------------------------------------");
-
   return new Promise((resolve, reject) => {
     moviess = obj.movies;
 
     if (!moviess.find((x) => x.name == movie.name)) {
       obj.movies.push(movie);
     }
-    console.log("------------------------------------------------");
-    console.log(obj);
-    console.log("------------------------------------------------");
     subscriptionModel.findOneAndUpdate(
       { _id: id },
-      { movies: [obj.movies] },
+      { movies: obj.movies },
       function (err, data) {
         if (err) {
           reject(err);

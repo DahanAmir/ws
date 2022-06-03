@@ -1,6 +1,6 @@
 const express = require("express");
 const memberBL = require("../BL/memberBL");
-
+const subscriptionBL = require("../BL/subscriptionBL");
 const router = express.Router();
 
 router.route("/").get(async function (req, resp) {
@@ -16,7 +16,9 @@ router.route("/:id").get(async function (req, resp) {
 
 router.route("/").post(async function (req, resp) {
   let obj = req.body;
-  let status = await userBL.createUser(obj);
+  let id = await memberBL.createMember(obj);
+  obj._id=id
+  let status = await subscriptionBL.createSubscript(obj)
   return resp.json(status);
 });
 

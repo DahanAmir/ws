@@ -60,11 +60,18 @@ const getMemberbyid = function (id) {
 };
 
 const createMember = function (obj) {
+if(obj.city)
+{
+city=obj.city
+}
+else{
+  city=obj.address.city
+}
   return new Promise((resolve, reject) => {
     let member = memberModel({
       name: obj.name,
       email: obj.email,
-      city: obj.address.city,
+      city: city,
     });
 
     member.save(function (err) {

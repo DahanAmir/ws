@@ -1,5 +1,6 @@
 const express = require("express");
 const subscriptionBL = require("../BL/subscriptionBL");
+const movieBL = require("../BL/movieBL");
 const router = express.Router();
 /* router.route("/all").get(async function (req, resp) {
   console.log("in")
@@ -31,10 +32,17 @@ router.route("/").post(async function (req, resp) {
 router.route("/addMovie/:id").post(async function (req, resp) {
   let id = req.params.id;
   let movie = req.body.movie;
-
   let status = await subscriptionBL.addSubscriptMovie(id, movie);
   return resp.json(status);
 });
+
+router.route("/delete/:id").delete(async function (req, resp) {
+  let id = req.params.id;
+  let movie = req.body.movie;
+  let status = await subscriptionBL.delSubscriptMovie(id, movie);
+  return resp.json(status);
+});
+
 
 router.route("/:id").put(async function (req, resp) {
   let obj = req.body;
@@ -46,7 +54,6 @@ router.route("/:id").put(async function (req, resp) {
 
 router.route("/:id").delete(async function (req, resp) {
   let id = req.params.id;
-
   let status = await subscriptionBL.deleteSubscript(id);
   return resp.json(status);
 });

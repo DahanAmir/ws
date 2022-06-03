@@ -1,3 +1,4 @@
+const Logger = require("nodemon/lib/utils/log");
 const subscriptionModel = require("../mongoose/subscriptionModel");
 
 const deleteAll = async function () {
@@ -22,7 +23,7 @@ const getSubscript = function (SubscriptId) {
       if (err) {
         reject(err);
       } else {
-        resolve(data);
+        resolve(data[0]);
       }
     });
   });
@@ -44,24 +45,55 @@ const createSubscript = function (obj) {
 
 const addSubscriptMovie = async function (id, movie) {
   let obj = await getSubscript(id);
-  obj = obj[0];
+  obj = obj;
   return new Promise((resolve, reject) => {
     moviess = obj.movies;
-
     if (!moviess.find((x) => x.name == movie.name)) {
       obj.movies.push(movie);
-    }
-    subscriptionModel.findOneAndUpdate(
-      { _id: id },
-      { movies: obj.movies },
-      function (err, data) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(obj._id);
+      subscriptionModel.findOneAndUpdate(
+        { _id: id },
+        { movies: obj.movies },
+        function (err, data) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(obj._id);
+          }
         }
-      }
-    );
+      );
+    }
+    else{
+      resolve("The movie is in the subscriber");
+    }
+    
+  });
+};
+
+
+const delSubscriptMovie = async function (id, movie) {
+  console.log(movie);
+  let obj = await getSubscript(id);
+  obj = obj;
+  return new Promise((resolve, reject) => {
+    moviess = obj.movies;
+    if (moviess.find((x) => x.name == movie.name)) {
+      obj.movies=obj.movies.filter(x => x.name!=movie.name);
+      subscriptionModel.findOneAndUpdate(
+        { _id: id },
+        { movies: obj.movies },
+        function (err, data) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(obj._id);
+          }
+        }
+      );
+    }
+    else{
+      resolve("The movie is not in the subscriber");
+    }
+    
   });
 };
 const updateSubscript = function (id, obj) {
@@ -96,4 +128,5 @@ module.exports = {
   deleteSubscript,
   addSubscriptMovie,
   deleteAll,
+  delSubscriptMovie
 };

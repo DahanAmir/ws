@@ -5,18 +5,7 @@ const deleteAll = async function () {
   moviesModel.find({}).remove().exec();
 };
 
-const onload = async function () {
-  if (true) {
-    moviesModel.find({}).remove().exec();
-    let resp = await movieDAL.getMovies();
-    let movies = resp.data;
-    var id;
-    for (let index = 0; index < movies.length; index++) {
-      id = createMovie(movies[index]);
-    }
-    return id;
-  }
-};
+
 const getmovies = () => {
   return new Promise((resolve, reject) => {
     moviesModel.find(function (err, data) {
@@ -43,14 +32,7 @@ const getmMvie = function (id) {
 
 const createMovie = function (obj) {
   return new Promise((resolve, reject) => {
-    let movie = moviesModel({
-      name: obj.name,
-      genres: obj.genres,
-      image: obj.image.medium,
-      premiered: obj.premiered,
-    });
-
-    movie.save(function (err) {
+moviesModel.create( obj,function (err) {
       if (err) {
         reject(err);
       } else {
@@ -61,15 +43,15 @@ const createMovie = function (obj) {
 };
 
 const updateMovie = function (id, obj) {
+  console.log(obj)
+  //obj=JSON.parse(obj)
+  console.log(obj)
+
   return new Promise((resolve, reject) => {
     moviesModel.findByIdAndUpdate(
       id,
-      {
-        name: obj.Name,
-        genres: obj.genres,
-        image: obj.image,
-        premiered: premiered,
-      },
+        obj
+      ,
       function (err) {
         if (err) {
           reject(err);
@@ -94,7 +76,7 @@ const deleteSubscript = function (id) {
 };
 
 module.exports = {
-  onload,
+  
   getmovies,
   getmMvie,
   createMovie,

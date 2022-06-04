@@ -91,7 +91,7 @@ const updateMember = function (id, obj) {
       {
         name: obj.name,
         email: obj.email,
-        city: obj.address.city,
+        city: obj.city,
       },
       function (err) {
         if (err) {

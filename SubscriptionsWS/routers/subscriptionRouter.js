@@ -2,25 +2,13 @@ const express = require("express");
 const subscriptionBL = require("../BL/subscriptionBL");
 const movieBL = require("../BL/movieBL");
 const router = express.Router();
-/* router.route("/all").get(async function (req, resp) {
-  console.log("in")
 
-  let users = await subscriptionBL.getSubscripts();
-  console.log(users)
-
-  return resp.json(users);
-});
-*/
 router.route("/").get(async function (req, resp) {
   let subscrip = await subscriptionBL.getSubscripts();
   return resp.json(subscrip);
 });
 
-//router.route("/:id").get(async function (req, resp) {
-//let id = req.params.id;
-// let subscr = await subscriptionBL.getSubscript(id);
-// return resp.json(subscr);
-//});
+
 
 router.route("/query").get(async function (req, resp) {
   let obj = req.query;
@@ -29,7 +17,12 @@ router.route("/query").get(async function (req, resp) {
 
   return resp.json(subscrips);
 });
+router.route("/memberId").get(async function (req, resp) {
+  let memberId = req.body;
+  let member = await subscriptionBL.getmemberId(memberId);
 
+  return resp.json(member);
+});
 router.route("/").post(async function (req, resp) {
   let obj = req.body;
   let status = await subscriptionBL.createSubscript(obj);

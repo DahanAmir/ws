@@ -4,17 +4,6 @@ const subscriptionModel = require("../mongoose/subscriptionModel");
 const deleteAll = async function () {
   subscriptionModel.find({}).remove().exec();
 };
-const getallSubscriptbyId = function (obj) {
-  return new Promise((resolve, reject) => {
-    subscriptionModel.find(obj, function (err, data) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(data);
-      }
-    });
-  });
-};
 const getSubscripts = function () {
   return new Promise((resolve, reject) => {
     subscriptionModel.find({}, function (err, data) {
@@ -26,6 +15,32 @@ const getSubscripts = function () {
     });
   });
 };
+const getmemberId =async function (memberId) {
+console.log(memberId);
+try {
+  return await subscriptionModel.find({"memberId" :"629e5c10b8258efa80fa8661"})
+} catch (error) {
+  return error.message
+}
+  
+};
+
+
+
+
+//////////////////////////////////////////////
+const getallSubscriptbyId = function (obj) {
+  return new Promise((resolve, reject) => {
+    subscriptionModel.find(obj, function (err, data) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+};
+
 const getSubscriptbymovieNmemner = function (obj) {
   return new Promise((resolve, reject) => {
     subscriptionModel.find(
@@ -155,4 +170,5 @@ module.exports = {
   deleteAll,
   delSubscriptMovie,
   getallSubscriptbyId,
+  getmemberId
 };

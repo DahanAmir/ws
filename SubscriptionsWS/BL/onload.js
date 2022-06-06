@@ -3,24 +3,33 @@ const memberBL = require("./memberBL");
 const subscriptionBL = require("./subscriptionBL");
 const memberDAL = require("../DAL/memberDAL");
 const movieDAL = require("../DAL/movieDAL");
+const { now } = require("mongoose");
 
 const movies = async function () {
   let resp = await movieDAL.getMovies();
   let movies = resp.data;
-  var id;
+  movies = movies.map((x) => {
+    return {
+      name: x.name,
+      genres: x.genres,
+      image: x.image.medium,
+      premiered: x.premiered,
+    };
+  });
+
+  let id;
   for (let index = 0; index < movies.length; index++) {
-    id = movieBL.createMovie(movies[index]);
+    id = await movieBL.createMovie(movies[index]);
   }
+
   return id;
 };
 const member = async function () {
   let resp = await memberDAL.getNember();
   let members = resp.data;
-  var id;
+  let id;
   for (let index = 0; index < members.length; index++) {
     id = await memberBL.createMember(members[index]);
-    obj = { _id: id };
-    subscriptionBL.createSubscript(obj);
   }
   return id;
 };
@@ -28,11 +37,29 @@ const start = async function () {
   await memberBL.deleteAll();
   await subscriptionBL.deleteAll();
   await movieBL.deleteAll();
-  idmovie = await movies();
-  idmember = await member();
-  movie = await movieBL.getmMvie(idmovie);
-  Subscript = await subscriptionBL.getSubscript(idmember);
-  await subscriptionBL.addSubscriptMovie(idmember, movie);
+  movieId = await movies();
+  memberId = await member();
+  mem = await memberBL.getMembers();
+  mov = await movieBL.getmovies();
+  for (let index = 0; index < mem.length; index++) {
+    obj = { movieId: mov[index]._id, memberId: mem[index]._id, date: now() };
+    await subscriptionBL.createSubscript(obj);
+    obj = {
+      movieId: mov[index + 1]._id,
+      memberId: mem[index]._id,
+      date: now(),
+    };
+    await subscriptionBL.createSubscript(obj);
+    obj = {
+      movieId: mov[index + 2]._id,
+      memberId: mem[index]._id,
+      date: now(),
+    };
+    await subscriptionBL.createSubscript(obj);
+  }
+
+  //movie = await movieBL.getmMvie(idmovie);
+  //await subscriptionBL.addSubscriptMovie(idmember, movie);
 };
 module.exports = {
   movies,

@@ -5,7 +5,6 @@ const deleteAll = async function () {
   moviesModel.find({}).remove().exec();
 };
 
-
 const getmovies = () => {
   return new Promise((resolve, reject) => {
     moviesModel.find(function (err, data) {
@@ -32,34 +31,25 @@ const getmMvie = function (id) {
 
 const createMovie = function (obj) {
   return new Promise((resolve, reject) => {
-moviesModel.create( obj,function (err) {
+    moviesModel.create(obj, function (err, data) {
       if (err) {
         reject(err);
       } else {
-        resolve(movie._id);
+        resolve(data._id);
       }
     });
   });
 };
 
 const updateMovie = function (id, obj) {
-  console.log(obj)
-  //obj=JSON.parse(obj)
-  console.log(obj)
-
   return new Promise((resolve, reject) => {
-    moviesModel.findByIdAndUpdate(
-      id,
-        obj
-      ,
-      function (err) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve("Updated !!");
-        }
+    moviesModel.findByIdAndUpdate(id, obj, function (err) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve("Updated !!");
       }
-    );
+    });
   });
 };
 
@@ -76,7 +66,6 @@ const deleteSubscript = function (id) {
 };
 
 module.exports = {
-  
   getmovies,
   getmMvie,
   createMovie,

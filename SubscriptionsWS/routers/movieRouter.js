@@ -22,9 +22,9 @@ router.route("/").post(async function (req, resp) {
 
 router.route("/:id").put(async function (req, resp) {
   let obj = req.body;
-  console.log(obj);
+
   let id = req.params.id;
-  console.log(id);
+
   let status = await movieBL.updateMovie(id, obj);
   return resp.json(status);
 });

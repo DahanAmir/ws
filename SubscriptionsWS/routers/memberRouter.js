@@ -17,8 +17,8 @@ router.route("/:id").get(async function (req, resp) {
 router.route("/").post(async function (req, resp) {
   let obj = req.body;
   let id = await memberBL.createMember(obj);
-  obj._id=id
-  let status = await subscriptionBL.createSubscript(obj)
+  obj._id = id;
+  let status = await subscriptionBL.createSubscript(obj);
   return resp.json(status);
 });
 
@@ -34,7 +34,7 @@ router.route("/:id").delete(async function (req, resp) {
   let id = req.params.id;
 
   let status = await memberBL.deleteMember(id);
-  status = await subscriptionBL.deleteSubscript(obj)
+  status = await subscriptionBL.deleteSubscript(obj);
 
   return resp.json(status);
 });

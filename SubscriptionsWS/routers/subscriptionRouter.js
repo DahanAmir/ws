@@ -12,15 +12,22 @@ const router = express.Router();
 });
 */
 router.route("/").get(async function (req, resp) {
-
   let subscrip = await subscriptionBL.getSubscripts();
   return resp.json(subscrip);
 });
 
-router.route("/:id").get(async function (req, resp) {
-  let id = req.params.id;
-  let subscr = await subscriptionBL.getSubscript(id);
-  return resp.json(subscr);
+//router.route("/:id").get(async function (req, resp) {
+//let id = req.params.id;
+// let subscr = await subscriptionBL.getSubscript(id);
+// return resp.json(subscr);
+//});
+
+router.route("/query").get(async function (req, resp) {
+  let obj = req.query;
+
+  let subscrips = await subscriptionBL.getallSubscriptbyId(obj);
+
+  return resp.json(subscrips);
 });
 
 router.route("/").post(async function (req, resp) {
@@ -42,7 +49,6 @@ router.route("/delete/:id").delete(async function (req, resp) {
   let status = await subscriptionBL.delSubscriptMovie(id, movie);
   return resp.json(status);
 });
-
 
 router.route("/:id").put(async function (req, resp) {
   let obj = req.body;

@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
-const MovieSchema = require("./moviesModel");
 
 var SubscriptionSchema = new mongoose.Schema({
-  movies: [MovieSchema.schema],
+  movieId: { type: Object, required: true },
+  memberId: { type: Object, required: true },
+  date: { type: Date, default: Date.now },
 });
-
+SubscriptionSchema.index({ movieId: 1, memberId: 1 }, { unique: true });
 module.exports = mongoose.model("subscriptions", SubscriptionSchema);

@@ -53,6 +53,17 @@ const deleteSubscript = function (id) {
     });
   });
 };
+const deleteSubscripts = function (query) {
+  return new Promise((resolve, reject) => {
+    subscriptionModel.deleteMany(query, function (err) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve("Deleted !!");
+      }
+    });
+  });
+};
 
 module.exports = {
   getSubscripts,
@@ -60,4 +71,5 @@ module.exports = {
   deleteSubscript,
   deleteAll,
   getquery,
+  deleteSubscripts
 };

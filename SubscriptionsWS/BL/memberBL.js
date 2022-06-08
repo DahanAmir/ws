@@ -72,7 +72,7 @@ const updateMember = function (id, obj) {
       },
       function (err) {
         if (err) {
-          reject(err);
+          reject(err.message);
         } else {
           resolve("Updated !!");
         }

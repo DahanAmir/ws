@@ -30,23 +30,6 @@ const getMember = async function (id) {
     });
   });
 };
-const onload = async function () {
-  if (true) {
-    memberModel.find({}).remove().exec();
-
-    subscriptionModel.find({}).remove().exec();
-    let resp = await memberDAL.getNember();
-    let members = resp.data;
-    var id;
-    for (let index = 0; index < members.length; index++) {
-      id = await createMember(members[index]);
-      obj = { _id: id };
-      subscriptionBL.createSubscript(obj);
-    }
-    return id;
-  }
-};
-
 const getMemberbyid = function (id) {
   return new Promise((resolve, reject) => {
     memberModel.findById(id, function (err, data) {
@@ -58,18 +41,14 @@ const getMemberbyid = function (id) {
     });
   });
 };
+////
 
 const createMember = function (obj) {
-  if (obj.city) {
-    city = obj.city;
-  } else {
-    city = obj.address.city;
-  }
   return new Promise((resolve, reject) => {
     let member = memberModel({
       name: obj.name,
       email: obj.email,
-      city: city,
+      city: obj.city,
     });
 
     member.save(function (err) {
@@ -115,7 +94,6 @@ const deleteMember = function (id) {
 };
 
 module.exports = {
-  onload,
   getMembers,
   getMemberbyid,
   createMember,

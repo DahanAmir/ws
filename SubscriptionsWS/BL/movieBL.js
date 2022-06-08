@@ -1,11 +1,9 @@
 const moviesModel = require("../mongoose/moviesModel");
-const movieDAL = require("../DAL/movieDAL");
 
 const deleteAll = async function () {
   moviesModel.find({}).remove().exec();
 };
-
-const getmovies = () => {
+const getMovies = () => {
   return new Promise((resolve, reject) => {
     moviesModel.find(function (err, data) {
       if (err) {
@@ -16,8 +14,7 @@ const getmovies = () => {
     });
   });
 };
-
-const getmMvie = function (id) {
+const getMovie = function (id) {
   return new Promise((resolve, reject) => {
     moviesModel.findById(id, function (err, data) {
       if (err) {
@@ -28,7 +25,6 @@ const getmMvie = function (id) {
     });
   });
 };
-
 const createMovie = function (obj) {
   return new Promise((resolve, reject) => {
     moviesModel.create(obj, function (err, data) {
@@ -40,7 +36,6 @@ const createMovie = function (obj) {
     });
   });
 };
-
 const updateMovie = function (id, obj) {
   return new Promise((resolve, reject) => {
     moviesModel.findByIdAndUpdate(id, obj, function (err) {
@@ -53,7 +48,7 @@ const updateMovie = function (id, obj) {
   });
 };
 
-const deleteSubscript = function (id) {
+const deleteMovie = function (id) {
   return new Promise((resolve, reject) => {
     moviesModel.findByIdAndDelete(id, function (err) {
       if (err) {
@@ -64,12 +59,13 @@ const deleteSubscript = function (id) {
     });
   });
 };
+///////////////////////
 
 module.exports = {
-  getmovies,
-  getmMvie,
+  getMovies,
+  getMovie,
   createMovie,
   updateMovie,
-  deleteSubscript,
+  deleteMovie,
   deleteAll,
 };

@@ -1,59 +1,49 @@
 const express = require("express");
 const subscriptionBL = require("../BL/subscriptionBL");
-const movieBL = require("../BL/movieBL");
 const router = express.Router();
-
+const mongoose = require("mongoose");
+var ObjectId = require("mongoose").Types.ObjectId;
 router.route("/").get(async function (req, resp) {
   let subscrip = await subscriptionBL.getSubscripts();
   return resp.json(subscrip);
 });
-
-
-
-router.route("/query").get(async function (req, resp) {
-  let obj = req.query;
-
-  let subscrips = await subscriptionBL.getallSubscriptbyId(obj);
-
-  return resp.json(subscrips);
+router.route("/memberId/:id").get(async function (req, resp) {
+  let id = req.params.id;
+  if (ObjectId.isValid(id)) {
+    memberId = mongoose.Types.ObjectId(id);
+    query = { memberId: memberId };
+    let member = await subscriptionBL.getquery(query);
+    return resp.json(member);
+  } else {
+    return resp.json("is not objectId");
+  }
 });
-router.route("/memberId").get(async function (req, resp) {
-  let memberId = req.body;
-  let member = await subscriptionBL.getmemberId(memberId);
-
-  return resp.json(member);
+router.route("/movieId/:id").get(async function (req, resp) {
+  let id = req.params.id;
+  if (ObjectId.isValid(id)) {
+    movieId = mongoose.Types.ObjectId(id);
+    query = { movieId: movieId };
+    let movies = await subscriptionBL.getquery(query);
+    return resp.json(movies);
+  } else {
+    return resp.json("is not objectId");
+  }
 });
+router.route("/:id").delete(async function (req, resp) {
+  let id = req.params.id;
+  if (ObjectId.isValid(id)) {
+    id = mongoose.Types.ObjectId(id);
+    let status = await subscriptionBL.deleteSubscript(id);
+    return resp.json(status);
+  } else {
+    return resp.json(subscrips);
+  }
+});
+////////////////////////
+
 router.route("/").post(async function (req, resp) {
   let obj = req.body;
   let status = await subscriptionBL.createSubscript(obj);
-  return resp.json(status);
-});
-
-router.route("/addMovie/:id").post(async function (req, resp) {
-  let id = req.params.id;
-  let movie = req.body.movie;
-  let status = await subscriptionBL.addSubscriptMovie(id, movie);
-  return resp.json(status);
-});
-
-router.route("/delete/:id").delete(async function (req, resp) {
-  let id = req.params.id;
-  let movie = req.body.movie;
-  let status = await subscriptionBL.delSubscriptMovie(id, movie);
-  return resp.json(status);
-});
-
-router.route("/:id").put(async function (req, resp) {
-  let obj = req.body;
-  let id = req.params.id;
-
-  let status = await subscriptionBL.updateSubscript(id, obj);
-  return resp.json(status);
-});
-
-router.route("/:id").delete(async function (req, resp) {
-  let id = req.params.id;
-  let status = await subscriptionBL.deleteSubscript(id);
   return resp.json(status);
 });
 

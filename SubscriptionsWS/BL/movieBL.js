@@ -36,9 +36,9 @@ const createMovie = function (obj) {
     });
   });
 };
-const updateMovie = function (id, obj) {
+const updateMovie = function (obj) {
   return new Promise((resolve, reject) => {
-    moviesModel.findByIdAndUpdate(id, obj, function (err) {
+    moviesModel.findByIdAndUpdate(obj._id, obj, function (err) {
       if (err) {
         reject(err);
       } else {

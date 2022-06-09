@@ -3,7 +3,6 @@ const memberBL = require("../BL/memberBL");
 const subscriptionBL = require("../BL/subscriptionBL");
 const router = express.Router();
 const mongoose = require("mongoose");
-const { quiet } = require("nodemon/lib/utils");
 var ObjectId = require("mongoose").Types.ObjectId;
 router.route("/").get(async function (req, resp) {
   let users = await memberBL.getMembers();

@@ -1,0 +1,11 @@
+<html>
+    <body>
+        
+        <h1>Users List</h1>
+        <ul>
+            <% members.forEach(function(member) { %>
+                <li><a href="/members/editMember/<%= member._id %>" ><%= member.name %></a></li>
+            <% }) %>
+        </ul>
+    </body>
+</html>

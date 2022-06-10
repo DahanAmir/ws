@@ -1,0 +1,17 @@
+<html>
+    <body>
+
+        <form action="/movies/savedata" method="POST">
+Add new Member
+<br>
+            <input  type="hidden" name="_id" value="<%= member._id %>"><br/>
+            Full Name : <input type="text" name="name" value="<%= member.name %>"><br/>
+            Email : <input type="text" name="email" value="<%= member.email %>"><br/>
+            City : <input type="text" name="city" value="<%= member.city %>"><br/>
+            <input type="submit" value="Save">
+            <input type="reset" value="Cancel">
+
+        </form>
+
+    </body>
+</html>

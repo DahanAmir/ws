@@ -1,0 +1,18 @@
+<html>
+    <body>
+
+        <form action="/movies/savedata" method="POST">
+Add new Member
+<br>
+            <input  type="hidden" name="_id" value="<%= movie._id %>"><br/>
+            Full Name : <input type="text" name="name" value="<%= movie.name %>"><br/>
+            genres : <input type="text" name="genres" value="<%= movie.genres.toString() %>"><br/>
+            premiered : <input type="date" name="premiered" value="<%= movie.premiered.slice(0,10) %>"><br/>
+            image : <input type="url" name="image" value="<%= movie.image %>"><br/>
+            <input type="submit" value="Save">
+            <input type="reset" value="Cancel">
+
+        </form>
+
+    </body>
+</html>

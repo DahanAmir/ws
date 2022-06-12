@@ -92,6 +92,20 @@ const deleteMember = function (id) {
     });
   });
 };
+const getsubscriptions = async function (query) {
+  return memberModel.aggregate([
+    {
+      $lookup: {
+        from: "subscriptions",
+        localField: "_id",
+        foreignField: "memberId",
+        as: "members",
+      },
+      
+    },
+
+  ]);
+};
 
 module.exports = {
   getMembers,
@@ -101,4 +115,5 @@ module.exports = {
   deleteMember,
   getMember,
   deleteAll,
+  getsubscriptions,
 };

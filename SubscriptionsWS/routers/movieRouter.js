@@ -14,30 +14,28 @@ router.route("/:id").get(async function (req, resp) {
   let id = req.params.id;
   if (ObjectId.isValid(id)) {
     movieId = mongoose.Types.ObjectId(id);
-  let movie = await movieBL.getMovie(id);
-  return resp.json(movie);
-} else {
-  return resp.json("is not objectId");
-}
+    let movie = await movieBL.getMovie(id);
+    return resp.json(movie);
+  } else {
+    return resp.json("is not objectId");
+  }
 });
 
 router.route("/").post(async function (req, resp) {
   let obj = req.body;
-  console.log(obj)
+  console.log(obj);
 
   let status = await movieBL.createMovie(obj);
   return resp.json(status);
 });
 router.route("/").put(async function (req, resp) {
-
   let obj = req.body;
-  console.log(obj)
+  console.log(obj);
 
   let status = await movieBL.updateMovie(obj);
   return resp.json(status);
 });
 ///
-
 
 router.route("/:id").delete(async function (req, resp) {
   let id = req.params.id;
@@ -45,11 +43,11 @@ router.route("/:id").delete(async function (req, resp) {
     movieId = mongoose.Types.ObjectId(id);
     await movieBL.deleteMovie(id);
     query = { movieId: movieId };
- let status = await subscriptionBL.deleteSubscripts(query)
-  return resp.json(status);
-} else {
-  return resp.json("is not objectId");
-}
+    let status = await subscriptionBL.deleteSubscripts(query);
+    return resp.json(status);
+  } else {
+    return resp.json("is not objectId");
+  }
 });
 
 module.exports = router;

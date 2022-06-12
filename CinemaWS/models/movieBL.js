@@ -20,4 +20,8 @@ const putMovie = async (obj) => {
   let resp = await restDAL.putMovie(obj);
   return resp;
 };
-module.exports = { getMovie, getMovies,putMovie };
+const postMovie = async (obj) => {
+  let resp = await restDAL.postMovie(obj);
+  return resp;
+};
+module.exports = { getMovie, getMovies,putMovie,postMovie };

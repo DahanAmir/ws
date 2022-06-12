@@ -3,9 +3,12 @@ var express = require("express");
 var router = express.Router();
 const movieBL = require("../models/movieBL");
 
+const SubscriptionBL = require("../models/SubscriptionBL");
+
 /* GET movie listing. */
 router.get("/", async function (req, res, next) {
   let moviesData = await movieBL.getMovies();
+  
   res.render("movies", { movies: moviesData });
 });
 router.get("/addnewmovie", async function (req, res, next) {

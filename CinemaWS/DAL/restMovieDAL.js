@@ -14,5 +14,12 @@ const putMovie = (obj) => {
    data: obj
  });
 };
+const postMovie = (obj) => {
+  return axios({
+   method: 'post',
+   url: 'http://localhost:8000/api/movie',
+   data: obj
+ });
+}
 
-module.exports = { getMovie, getMovies,putMovie };
+module.exports = { getMovie, getMovies,putMovie,postMovie };

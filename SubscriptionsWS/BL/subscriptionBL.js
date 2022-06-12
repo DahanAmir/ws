@@ -27,6 +27,64 @@ const getquery = async function (query) {
     });
   });
 };
+const getMembers = async function (query) {
+  return subscriptionModel.aggregate([
+    {
+      $lookup: {
+        from: "members",
+        localField: "memberId",
+        foreignField: "_id",
+        as: "members",
+      },
+    },
+  ]);
+};
+const getMovie = async function (query) {
+  return subscriptionModel.aggregate([
+    {
+      $lookup: {
+        from: "movies",
+        localField: "movieId",
+        foreignField: "_id",
+        as: "movies",
+      },
+    },
+  ]);
+};
+const getMovieandMember = async function (query) {
+  return subscriptionModel.aggregate([
+    {
+      $unwind: {
+        path: "$memberId",
+        preserveNullAndEmptyArrays: true
+
+      }
+    },
+
+    {
+      $lookup: {
+        from: "members",
+        localField: "memberId",
+        foreignField: "_id",
+        as: "members",
+        
+      },
+    },
+ 
+
+    {
+      $lookup: {
+        from: "movies",
+        localField: "movieId",
+        foreignField: "_id",
+        as: "movies",
+      },
+    },
+
+    
+  
+  ]);
+};
 
 //יצירת מנוי של סרט וחבר
 const createSubscript = function (obj) {
@@ -71,5 +129,8 @@ module.exports = {
   deleteSubscript,
   deleteAll,
   getquery,
-  deleteSubscripts
+  deleteSubscripts,
+  getMembers,
+  getMovie,
+  getMovieandMember,
 };

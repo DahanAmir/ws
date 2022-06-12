@@ -64,8 +64,11 @@ const start = async function () {
   //movie = await movieBL.getmMvie(idmovie);
   //await subscriptionBL.addSubscriptMovie(idmember, movie);
 };
+const sub = async function () {};
+
 module.exports = {
   movies,
   member,
   start,
+  sub,
 };

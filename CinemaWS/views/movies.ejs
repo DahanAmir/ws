@@ -1,11 +1,20 @@
 <html>
     <body>
-        
+        <link rel='stylesheet' href='/stylesheets/style.css' />
+
         <h1>movies List</h1>
-        <ul>
+        
             <% movies.forEach(function(movie) { %>
-                <li><a href="/movies/editMovie/<%= movie._id %>" ><%= movie.name %></a></li>
+             <div class="card" >     Name : <%= movie.name %><br/>
+                genres : <%= movie.genres.toString() %><br/>
+                premiered :<%= movie.premiered.slice(0,10) %><br/>
+                <img src="<%= movie.image %>"><br>
+                
+                <a class="btn btn-primary" href="/movies/editMovie/<%= movie._id %>"  >editMovie</a>
+              
+            </div>
+            
             <% }) %>
-        </ul>
+        
     </body>
 </html>

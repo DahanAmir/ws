@@ -1,11 +1,31 @@
 const express = require("express");
 const subscriptionBL = require("../BL/subscriptionBL");
+const memberBL = require("../BL/memberBL");
+const movieBL = require("../BL/movieBL");
 const router = express.Router();
 const mongoose = require("mongoose");
 var ObjectId = require("mongoose").Types.ObjectId;
 router.route("/").get(async function (req, resp) {
-  let subscrip = await subscriptionBL.getSubscripts();
+  let subscrip = await subscriptionBL.getamir();
+
+  //  let subscrip = await subscriptionBL.getSubscripts();
   return resp.json(subscrip);
+});
+router.route("/MovieandMember").get(async function (req, resp) {
+  let MovieandMember = await subscriptionBL.getMovieandMember();
+
+  return resp.json(MovieandMember);
+});
+
+router.route("/getMembers").get(async function (req, resp) {
+  let Members = await subscriptionBL.getMembers();
+
+  return resp.json(Members);
+});
+router.route("/getMovie").get(async function (req, resp) {
+  let Movies = await subscriptionBL.getMovie();
+
+  return resp.json(Movies);
 });
 router.route("/memberId/:id").get(async function (req, resp) {
   let id = req.params.id;

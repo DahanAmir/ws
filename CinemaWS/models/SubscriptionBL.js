@@ -21,7 +21,7 @@ const getsubScriptionMovieId = async (id) => {
   return ScriptionMovieData;
 };
 const putMovie = async (obj) => {
-  console.log(obj)
+  console.log(obj);
   let resp = await restDAL.putMovie(obj);
   return resp;
 };
@@ -29,4 +29,10 @@ const postScription = async (obj) => {
   let resp = await restDAL.postScription(obj);
   return resp;
 };
-module.exports = { getsubScriptionMemberId, getSubscriptions,getsubScriptionMovieId,putMovie,postScription };
+module.exports = {
+  getsubScriptionMemberId,
+  getSubscriptions,
+  getsubScriptionMovieId,
+  putMovie,
+  postScription,
+};

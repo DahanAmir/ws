@@ -51,15 +51,12 @@ const getMovie = async function (query) {
     },
   ]);
 };
-const getMovieandMember = async function (query) {
-  return subscriptionModel.aggregate([
-    {
-      $unwind: {
-        path: "$memberId",
-        preserveNullAndEmptyArrays: true
+const getMovieandMember = async function () {
+  
 
-      }
-    },
+
+
+  return   subscriptionModel.aggregate([
 
     {
       $lookup: {
@@ -71,7 +68,7 @@ const getMovieandMember = async function (query) {
       },
     },
  
-
+   
     {
       $lookup: {
         from: "movies",
@@ -79,10 +76,7 @@ const getMovieandMember = async function (query) {
         foreignField: "_id",
         as: "movies",
       },
-    },
-
-    
-  
+    }
   ]);
 };
 

@@ -4,10 +4,11 @@ const getMembers = async () => {
   let resp = await restDAL.getMembers();
   let usersData = resp.data;
   return usersData;
-  //return usersData.map(x =>
-  //   {
-  //      return {id : x.id, name : x.name}
-  //  })
+};
+const getSubscriptions = async () => {
+  let resp = await restDAL.getSubscriptions();
+  let subscriptionsData = resp.data;
+  return subscriptionsData;
 };
 
 const getMember = async (id) => {
@@ -26,4 +27,10 @@ const putMember = async (obj) => {
   return resp;
 };
 
-module.exports = { getMembers, getMember,postMember,putMember };
+module.exports = {
+  getSubscriptions,
+  getMembers,
+  getMember,
+  postMember,
+  putMember,
+};

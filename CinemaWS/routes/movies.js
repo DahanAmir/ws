@@ -8,7 +8,7 @@ const SubscriptionBL = require("../models/SubscriptionBL");
 /* GET movie listing. */
 router.get("/", async function (req, res, next) {
   let moviesData = await movieBL.getMovies();
-  
+  let Subscription = await SubscriptionBL.getSubscriptions;
   res.render("movies", { movies: moviesData });
 });
 router.get("/addnewmovie", async function (req, res, next) {
@@ -21,17 +21,22 @@ router.get("/:id", async function (req, res, next) {
   res.render("movie", { movie: movieData });
 });
 router.get("/editMovie/:id", async function (req, res, next) {
-
   let id = req.params.id;
   let movieData = await movieBL.getMovie(id);
   res.render("editmovie", { movie: movieData });
 });
 router.post("/savedata", async function (req, res, next) {
   let obj = req.body;
-  console.log(obj)
+  console.log(obj);
 
-  obj={ _id:obj._id, name: obj.name,    genres: obj.genres,    premiered: obj.premiered,  image: obj.image  }
-  console.log(obj)
+  obj = {
+    _id: obj._id,
+    name: obj.name,
+    genres: obj.genres,
+    premiered: obj.premiered,
+    image: obj.image,
+  };
+  console.log(obj);
 
   await movieBL.putMovie(obj);
   let moviesData = await movieBL.getMovies();

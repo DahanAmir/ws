@@ -15,10 +15,16 @@ const deletesubScription = (id) => {
 };
 const postScription = (obj) => {
   return axios({
-    method: 'post',
-    url: 'http://localhost:8000/api/subscription',
-    data: obj
+    method: "post",
+    url: "http://localhost:8000/api/subscription",
+    data: obj,
   });
 };
 
-module.exports = { getSubscriptions, getsubScriptionMovieId ,getsubScriptionMemberId,deletesubScription,postScription};
+module.exports = {
+  getSubscriptions,
+  getsubScriptionMovieId,
+  getsubScriptionMemberId,
+  deletesubScription,
+  postScription,
+};

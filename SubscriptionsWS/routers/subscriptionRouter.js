@@ -6,7 +6,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 var ObjectId = require("mongoose").Types.ObjectId;
 router.route("/").get(async function (req, resp) {
-  let subscrip = await subscriptionBL.getamir();
+  let subscrip = await subscriptionBL.getSubscripts();
 
   //  let subscrip = await subscriptionBL.getSubscripts();
   return resp.json(subscrip);

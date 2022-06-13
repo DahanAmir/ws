@@ -9,7 +9,11 @@ router.route("/").get(async function (req, resp) {
   let movies = await movieBL.getMovies();
   return resp.json(movies);
 });
-
+router.route("/subscriptions").get(async function (req, resp) {
+  let subscriptions = await movieBL.getsubscriptions();
+  //  let users = await memberBL.getMembers();
+  return resp.json(subscriptions);
+});
 router.route("/:id").get(async function (req, resp) {
   let id = req.params.id;
   if (ObjectId.isValid(id)) {

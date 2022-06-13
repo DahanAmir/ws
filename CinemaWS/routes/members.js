@@ -24,10 +24,10 @@ router.get("/editMember/:id", async function (req, res, next) {
 });
 router.post("/savedata", async function (req, res, next) {
   let obj = req.body;
-  obj={ _id:obj._id, name: obj.name,    email: obj.email,    city: obj.city,}
+  obj = { _id: obj._id, name: obj.name, email: obj.email, city: obj.city };
   await memberBL.putMember(obj);
- let membersData = await memberBL.getMembers();
- res.render("members", { members: membersData });
+  let membersData = await memberBL.getMembers();
+  res.render("members", { members: membersData });
 });
 
 module.exports = router;

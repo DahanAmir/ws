@@ -48,6 +48,42 @@ const updateMovie = function (obj) {
   });
 };
 
+const getsubscriptions=async function() {
+  
+  return moviesModel.aggregate([
+    {
+      $lookup: {
+        from: "subscriptions",
+        localField: "_id",
+        foreignField: "movieId",
+        as: "subscriptions",
+      },
+      
+    }
+  ]);
+};
+/**
+const getsubscriptions = async function (query) {
+  return moviesModel.aggregate([
+    {
+      $lookup: {
+        from: "subscriptions",
+        localField: "_id",
+        foreignField: "movieId",
+        as: "movies",
+      },
+      $lookup: {
+        from: "members",
+        localField: "_id",
+        foreignField: "$memberId",
+        as: "members",
+      },
+      
+    },
+
+  ]);
+};
+ */
 const deleteMovie = function (id) {
   return new Promise((resolve, reject) => {
     moviesModel.findByIdAndDelete(id, function (err) {
@@ -68,4 +104,5 @@ module.exports = {
   updateMovie,
   deleteMovie,
   deleteAll,
+  getsubscriptions
 };

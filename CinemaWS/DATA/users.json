@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "Fname": "Avi",
+      "Lname": "David",
+      "CreateDate": "2022-06-13",
+      "SessionTimeOut": "120"
+    },
+    {
+      "id": 2,
+      "name": "Dana",
+      "Lname": "Levy",
+      "CreateDate": "2022-06-13",
+      "SessionTimeOut": "120"
+    },
+    {
+      "id": 3,
+      "Fname": "Roee",
+      "Lname": "Gefen",
+      "CreateDate": "2022-06-13",
+      "SessionTimeOut": "120"
+    }
+  ]
+}

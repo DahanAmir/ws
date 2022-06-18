@@ -53,31 +53,12 @@ const getMovie = async function (query) {
 };
 const getMovieandMember = async function () {
   
+  data=await subscriptionModel.find().populate(['movieId', 'memberId'])
+  console.log(data)
+  data.map((x)=> x.id)
+  return   data
 
 
-
-  return   subscriptionModel.aggregate([
-
-    {
-      $lookup: {
-        from: "members",
-        localField: "memberId",
-        foreignField: "_id",
-        as: "members",
-        
-      },
-    },
- 
-   
-    {
-      $lookup: {
-        from: "movies",
-        localField: "movieId",
-        foreignField: "_id",
-        as: "movies",
-      },
-    }
-  ]);
 };
 
 //יצירת מנוי של סרט וחבר

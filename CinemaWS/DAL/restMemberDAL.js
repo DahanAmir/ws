@@ -18,8 +18,6 @@ const postMember = (obj) => {
   });
 };
 const putMember = (obj) => {
-  console.log(obj);
-
   return axios({
     method: "put",
     url: "http://localhost:8000/api/member/" + obj._id,

@@ -21,8 +21,6 @@ const postMember = async (obj) => {
   return resp;
 };
 const putMember = async (obj) => {
-  console.log(obj);
-
   let resp = await restDAL.putMember(obj);
   return resp;
 };

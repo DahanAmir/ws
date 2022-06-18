@@ -2,14 +2,32 @@ const { response } = require("express");
 var express = require("express");
 var router = express.Router();
 const movieBL = require("../models/movieBL");
-
-const SubscriptionBL = require("../models/SubscriptionBL");
-
+var jwt = require("jsonwebtoken");
+//const SubscriptionBL = require("../models/SubscriptionBL");
+//
 /* GET movie listing. */
 router.get("/", async function (req, res, next) {
-  let moviesData = await movieBL.getMovies();
-  let Subscription = await SubscriptionBL.getSubscriptions;
-  res.render("movies", { movies: moviesData });
+  token = req.token;
+
+  const RSA_PRIVATE_KEY = "somekey";
+
+  if (!token)
+    return res.status(401).send({ auth: false, message: "No token provided." });
+
+  jwt.verify(token, RSA_PRIVATE_KEY, async function (err, data) {
+    // userid = data.userid;
+    //check userid in DB
+
+    if (err)
+      return res
+        .status(500)
+        .send({ auth: false, message: "Failed to authenticate token." });
+
+    //res.status(200).send(decoded);
+    let moviesData = await movieBL.getMovies();
+    res.render("movies", { movies: moviesData });
+    // res.status(200).send([{name : 'car'},{name : 'phone'}]);
+  });
 });
 router.get("/addnewmovie", async function (req, res, next) {
   res.render("userData");
@@ -27,7 +45,6 @@ router.get("/editMovie/:id", async function (req, res, next) {
 });
 router.post("/savedata", async function (req, res, next) {
   let obj = req.body;
-  console.log(obj);
 
   obj = {
     _id: obj._id,
@@ -36,7 +53,6 @@ router.post("/savedata", async function (req, res, next) {
     premiered: obj.premiered,
     image: obj.image,
   };
-  console.log(obj);
 
   await movieBL.putMovie(obj);
   let moviesData = await movieBL.getMovies();

@@ -1,8 +1,5 @@
 const express = require("express");
 ////////////////////////////BL///////////////////////////////////////
-const movieBL = require("./BL/movieBL");
-const memberBL = require("./BL/memberBL");
-const subscriptionBL = require("./BL/subscriptionBL");
 const onloadBL = require("./BL/onload");
 ////////////////////////router/////////////////////////////////////
 const subscriptionRouter = require("./routers/subscriptionRouter");

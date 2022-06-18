@@ -21,7 +21,6 @@ const getsubScriptionMovieId = async (id) => {
   return ScriptionMovieData;
 };
 const putMovie = async (obj) => {
-  console.log(obj);
   let resp = await restDAL.putMovie(obj);
   return resp;
 };

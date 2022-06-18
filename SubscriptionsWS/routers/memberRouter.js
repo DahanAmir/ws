@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 var ObjectId = require("mongoose").Types.ObjectId;
 
 router.route("/").get(async function (req, resp) {
-  let users = await memberBL.getamir();
+  let users = await memberBL.getMember();
   //  let users = await memberBL.getMembers();
   return resp.json(users);
 });

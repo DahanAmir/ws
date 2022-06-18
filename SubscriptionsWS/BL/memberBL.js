@@ -102,15 +102,7 @@ const getsubscriptions = async function (query) {
         as: "members",
       },
       
-    },   {
-      $lookup: {
-        from: "movies",
-        localField: "_id",
-        foreignField: "movieId",
-        as: "movies",
-      },
-      
-    },
+    }
     
 
   ]);

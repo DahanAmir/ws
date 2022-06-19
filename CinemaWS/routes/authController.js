@@ -15,17 +15,8 @@ router.post("/login", async function (req, res) {
   let user = await userBL.login(obj);
   if (user) {
     //Get the real secret key from db or envinroment variable..
- 
 
-    console.log(user._id);
-    console.log(user._id);
-    console.log(user._id);
-    console.log(user.SessionTimeOut);
-    console.log(user.SessionTimeOut);
-    console.log(user.SessionTimeOut);
-    console.log(RSA_PRIVATE_KEY);
-
-    var tokenData = jwt.sign({ id: user._id },
+     var tokenData = jwt.sign({ id: user._id },
       RSA_PRIVATE_KEY,
      {expiresIn: user.SessionTimeOut  } // expires in 2 hours
      );

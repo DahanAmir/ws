@@ -97,11 +97,7 @@ const getsubscriptions = async function (query) {
         foreignField: "memberId",
         as: "members",
       },
-      
-    }
-    ,
-    
-
+    },
   ]);
 };
 

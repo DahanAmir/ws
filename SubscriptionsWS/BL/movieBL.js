@@ -5,7 +5,7 @@ const deleteAll = async function () {
 };
 const getMovies = () => {
   return new Promise((resolve, reject) => {
-    moviesModel.find({},function (err, data) {
+    moviesModel.find({}, function (err, data) {
       if (err) {
         reject(err);
       } else {
@@ -48,8 +48,7 @@ const updateMovie = function (obj) {
   });
 };
 
-const getsubscriptions=async function() {
-  
+const getsubscriptions = async function () {
   return moviesModel.aggregate([
     {
       $lookup: {
@@ -58,8 +57,7 @@ const getsubscriptions=async function() {
         foreignField: "movieId",
         as: "subscriptions",
       },
-      
-    }
+    },
   ]);
 };
 /**
@@ -104,5 +102,5 @@ module.exports = {
   updateMovie,
   deleteMovie,
   deleteAll,
-  getsubscriptions
+  getsubscriptions,
 };

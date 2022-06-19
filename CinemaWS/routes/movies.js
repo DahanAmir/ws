@@ -2,32 +2,39 @@ const { response } = require("express");
 var express = require("express");
 var router = express.Router();
 const movieBL = require("../models/movieBL");
-var jwt = require("jsonwebtoken");
-//const SubscriptionBL = require("../models/SubscriptionBL");
-//
-/* GET movie listing. */
-router.get("/", async function (req, res, next) {
-  token = req.token;
+const jwt = require('jsonwebtoken');
+const secret = require("../configs/secret")
+const RSA_PRIVATE_KEY=secret.secret()
 
-  const RSA_PRIVATE_KEY = "somekey";
+
+router.get("/", async function (req, res, next) {
+  token =  req.query.token 
+  var moviesData = await movieBL.getMovies();
+
 
   if (!token)
-    return res.status(401).send({ auth: false, message: "No token provided." });
+  {return res.status(401).send({ auth: false, message: "No token provided." });}
+    
+    
+    jwt.verify(token, RSA_PRIVATE_KEY, function(err, data) 
+    {
+        
+        console.log(data.id)
 
-  jwt.verify(token, RSA_PRIVATE_KEY, async function (err, data) {
-    // userid = data.userid;
-    //check userid in DB
+  
+        if (err)
+        {
 
-    if (err)
-      return res
-        .status(500)
-        .send({ auth: false, message: "Failed to authenticate token." });
-
-    //res.status(200).send(decoded);
-    let moviesData = await movieBL.getMovies();
+          return res
+          .status(500)
+          .send({ auth: false, message: "Failed to authenticate token." });
+  
+        }
     res.render("movies", { movies: moviesData });
-    // res.status(200).send([{name : 'car'},{name : 'phone'}]);
-  });
+    });
+
+
+ 
 });
 router.get("/addnewmovie", async function (req, res, next) {
   res.render("userData");

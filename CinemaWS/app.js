@@ -9,7 +9,6 @@ var indexRouter = require("./routes/index");
 var membersRouter = require("./routes/members");
 var membersRouter = require("./routes/movies");
 var authRouter = require("./routes/authController");
-var cookie = require("request-cookie");
 
 require("./configs/database");
 

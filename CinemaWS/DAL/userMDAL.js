@@ -1,5 +1,6 @@
 const userModel = require("../mongoose/userModel");
 
+
 const deleteAll = async function () {
   userModel.find({}).remove().exec();
 };

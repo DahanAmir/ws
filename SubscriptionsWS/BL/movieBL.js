@@ -5,7 +5,7 @@ const deleteAll = async function () {
 };
 const getMovies = () => {
   return new Promise((resolve, reject) => {
-    moviesModel.find(function (err, data) {
+    moviesModel.find({},function (err, data) {
       if (err) {
         reject(err);
       } else {

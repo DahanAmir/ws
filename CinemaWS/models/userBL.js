@@ -1,34 +1,30 @@
-const restDAL = require("../DAL/userDB");
+const userDB = require("../DAL/userMDAL");
+const userJsonDAL=require("../DAL/userJsonDAL")
 
 const getUsers = async () => {
-  let resp = await restDAL.getUsers();
-  let usersData = resp.data;
+  let usersData = await userDB.getUsers();
   return usersData;
 };
-const getSubscriptions = async () => {
-  let resp = await restDAL.getSubscriptions();
-  let subscriptionsData = resp.data;
-  return subscriptionsData;
+
+const login = async (obj) => {
+  let usersData = await userDB.login(obj);
+  usersData=usersData[0]
+ let userjson=await userJsonDAL.getUserData()
+ userjson=userjson.users
+ userj=userjson.filter(x=>x._id==usersData._id)
+ userj=userj[0]
+user={_id:userj._id,
+      username:usersData.username,
+      password:usersData.password,
+      SessionTimeOut:userj.SessionTimeOut
+      }
+
+ return user;
+
 };
 
-const getMember = async (id) => {
-  let resp = await restDAL.getMember(id);
-  let userData = resp.data;
-  return userData;
-};
-const postMember = async (obj) => {
-  let resp = await restDAL.postMember(obj);
-  return resp;
-};
-const putMember = async (obj) => {
-  let resp = await restDAL.putMember(obj);
-  return resp;
-};
 
 module.exports = {
-  getSubscriptions,
   getUsers,
-  getMember,
-  postMember,
-  putMember,
+  login,
 };

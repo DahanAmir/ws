@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <script>
 
-var token = "<%= Data  %>"
-alert(token)
-sessionStorage["token"] =token.token
-
-sessionStorage["id"] =token.id
+var data = "<%= Data  %>"
+sessionStorage["token"] ="<%=Data.token%>"
+sessionStorage["id"] ="<%=Data._id%>"
 
 </script>
 <html>
@@ -21,7 +19,7 @@ sessionStorage["id"] =token.id
    <br>
    <br>
 
-   <a href="/members?token=<%=Data%>">
+   <a href="/members?token=<%=Data.token%>">
     <button>members</button>
  </a>
  <p id="source"></p>

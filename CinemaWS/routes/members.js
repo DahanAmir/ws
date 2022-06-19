@@ -3,17 +3,21 @@ var express = require("express");
 var router = express.Router();
 const memberBL = require("../models/memberBL");
 const jwt = require("jsonwebtoken");
-
+const secret = require("../configs/secret")
+const RSA_PRIVATE_KEY=secret.secret()
 /* GET members listing. */
 router.get("/", async function (req, res, next) {
-  var token = req.token;
+  var token =  req.query.token ;
 
-  const RSA_PRIVATE_KEY = "somekey";
+  var membersData = await memberBL.getMembers();
+  console.log(membersData);
+  res.render("members", { members: membersData });
+
   if (!token)
     return res.status(401).send({ auth: false, message: "No token provided." });
 
-  jwt.verify(token, RSA_PRIVATE_KEY, async function (err, data) {
-    userid = data.userid;
+  jwt.verify(token, RSA_PRIVATE_KEY, function (err, data) {
+    userid = data.id;
     //check userid in DB
 
     if (err)
@@ -22,7 +26,6 @@ router.get("/", async function (req, res, next) {
         .send({ auth: false, message: "Failed to authenticate token." });
     else {
       //res.status(200).send(decoded);
-      let membersData = await memberBL.getMembers();
       res.render("members", { members: membersData });
     }
   });

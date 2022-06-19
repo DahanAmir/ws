@@ -1,29 +1,35 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
+const  jwt = require('jsonwebtoken');
 const userBL = require("../models/userBL");
 var router = express.Router();
+const secret = require("../configs/secret")
+const RSA_PRIVATE_KEY=secret.secret()
 router.post("/login", async function (req, res) {
+
+  console.log(RSA_PRIVATE_KEY);
   obj = {
     username: req.body.username,
     password: req.body.password,
   };
 
-  let user = await userBL.getUsers();
-
-  //if (validateUsernameAndPassword()) {
+  let user = await userBL.login(obj);
   if (user) {
-    //  const userId = findUserIdForUserName(username);
-    const userId = user.id;
-
     //Get the real secret key from db or envinroment variable..
-    const RSA_PRIVATE_KEY = "somekey";
+ 
 
-    var tokenData = jwt.sign(
-      { id: userId },
+    console.log(user._id);
+    console.log(user._id);
+    console.log(user._id);
+    console.log(user.SessionTimeOut);
+    console.log(user.SessionTimeOut);
+    console.log(user.SessionTimeOut);
+    console.log(RSA_PRIVATE_KEY);
+
+    var tokenData = jwt.sign({ id: user._id },
       RSA_PRIVATE_KEY,
-      { expiresIn: 2500 } // expires in 2 hours
-    );
-    Data = { token: tokenData, id: user.id };
+     {expiresIn: user.SessionTimeOut  } // expires in 2 hours
+     );
+    Data = { token: tokenData, _id: user._id };
 
     // res.JSON('token', JSON.stringify( tokenData )); //use encrypted token
     res.render("main", { Data: Data });
@@ -33,6 +39,7 @@ router.post("/login", async function (req, res) {
   } else {
     res.sendStatus(401);
   }
+  
 });
 
 router.get("/", function (req, res, next) {

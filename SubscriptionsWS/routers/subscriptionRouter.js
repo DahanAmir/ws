@@ -5,6 +5,12 @@ const movieBL = require("../BL/movieBL");
 const router = express.Router();
 const mongoose = require("mongoose");
 var ObjectId = require("mongoose").Types.ObjectId;
+var groupBy = function (xs, key) {
+  return xs.reduce(function (rv, x) {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
+  }, {});
+};
 router.route("/").get(async function (req, resp) {
   let subscrip = await subscriptionBL.getSubscripts();
 
@@ -12,9 +18,30 @@ router.route("/").get(async function (req, resp) {
   return resp.json(subscrip);
 });
 router.route("/MovieandMember").get(async function (req, resp) {
-  let MovieandMember = await subscriptionBL.getMovieandMember();
+  let movies1 = await movieBL.getMovies();
+  let members = await memberBL.getsubscriptions();
+  members.forEach((element) => {
+    delete element._id;
+    if (element.movies.length != 0) {
+      element.movies.forEach((x) => {
+        movies1.forEach((y) => {
+          if (y._id.toString() == x.movieId.toString()) {
+            x.movieId = y;
+            delete x._id;
+            delete x.memberId;
+          }
+        });
+      });
+    } else {
+      delete element.memberId;
+      delete element.members;
+      delete element.movies;
+    }
+  });
 
-  return resp.json(MovieandMember);
+  //let Members = await subscriptionBL.getMembers();
+
+  return resp.json(members);
 });
 
 router.route("/getMembers").get(async function (req, resp) {

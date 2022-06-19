@@ -6,7 +6,7 @@ const deleteAll = async function () {
 
 const getMembers = async function () {
   return new Promise((resolve, reject) => {
-    memberModel.find(function (err, data) {
+    memberModel.find({}, function (err, data) {
       if (err) {
         reject(err);
       } else {
@@ -95,7 +95,7 @@ const getsubscriptions = async function (query) {
         from: "subscriptions",
         localField: "_id",
         foreignField: "memberId",
-        as: "members",
+        as: "movies",
       },
     },
   ]);

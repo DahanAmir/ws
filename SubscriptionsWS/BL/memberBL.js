@@ -88,7 +88,7 @@ const deleteMember = function (id) {
     });
   });
 };
-const getsubscriptions = async function (query) {
+const getsubscriptions = async function () {
   return memberModel.aggregate([
     {
       $lookup: {

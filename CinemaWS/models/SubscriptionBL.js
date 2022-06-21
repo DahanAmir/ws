@@ -28,10 +28,17 @@ const postScription = async (obj) => {
   let resp = await restDAL.postScription(obj);
   return resp;
 };
+const getMoviesByMembers = async () => {
+  let resp = await restDAL.getMoviesByMembers();
+  let ScriptionMemberData = resp.data;
+  return ScriptionMemberData;
+};
+
 module.exports = {
   getsubScriptionMemberId,
   getSubscriptions,
   getsubScriptionMovieId,
   putMovie,
   postScription,
+  getMoviesByMembers
 };

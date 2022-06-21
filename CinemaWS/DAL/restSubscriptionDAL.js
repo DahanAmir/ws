@@ -20,6 +20,10 @@ const postScription = (obj) => {
     data: obj,
   });
 };
+const getMoviesByMembers = () => {
+  return axios.get("http://localhost:8000/api/subscription/MovieByMember");
+};
+
 
 module.exports = {
   getSubscriptions,
@@ -27,4 +31,5 @@ module.exports = {
   getsubScriptionMemberId,
   deletesubScription,
   postScription,
+  getMoviesByMembers
 };

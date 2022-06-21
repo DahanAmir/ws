@@ -1,0 +1,22 @@
+<html>
+    <script>
+
+        
+    </script>
+    <body>
+        
+        <h1>Users List</h1>
+        <ul>
+            <% subscription.forEach(function(sub) { %>
+                <li><a href="/members/editMember/<%= sub._id %>" ><%= sub.name %></a></li>
+                <% sub.movies.forEach(function(mov) { %>
+                    <h1>
+                        <%= mov.movieId.name %>
+                    </h1>
+                  
+                    
+                    <% }) %>   
+                    <% }) %>
+        </ul>
+    </body>
+</html>

@@ -10,6 +10,7 @@ var membersRouter = require("./routes/members");
 var moviesRouter = require("./routes/movies");
 var subscriptionRouter = require("./routes/subscription");
 var authRouter = require("./routes/authController");
+var usersRouter = require("./routes/users");
 
 require("./configs/database");
 
@@ -28,6 +29,7 @@ app.use("/members", membersRouter);
 app.use("/movies", moviesRouter);
 app.use("/auth", authRouter);
 app.use("/subscription", subscriptionRouter);
+app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

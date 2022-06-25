@@ -33,15 +33,15 @@ const login = function (obj) {
 const createUser = function (obj) {
   return new Promise((resolve, reject) => {
     let user = userModel({
-      userName: obj.userName,
+      username: obj.userName,
       password: obj.password,
     });
 
-    user.save(function (err) {
+    user.save(function (err,data) {
       if (err) {
         reject(err);
       } else {
-        resolve(user._id);
+        resolve(data._id);
       }
     });
   });

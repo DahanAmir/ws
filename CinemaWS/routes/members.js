@@ -12,13 +12,7 @@ router.get("/", async function (req, res, next) {
   console.log(membersData);
   res.render("members", { members: membersData });
 });
-/**
-router.get("/addnewMember", async function (req, res, next) {
-  var token = req.token;
 
-  res.render("userData");
-});
- */
 router.get("/:id", async function (req, res, next) {
   let id = req.params.id;
   let memberData = await memberBL.getMember(id);

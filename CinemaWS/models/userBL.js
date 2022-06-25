@@ -1,9 +1,29 @@
 const userDB = require("../DAL/userMDAL");
-const userJsonDAL=require("../DAL/userJsonDAL")
+const userJsonDAL=require("../DAL/userJsonDAL");
+const { now } = require("mongoose");
 
-const getUsers = async () => {
+const getUsersDB = async () => {
   let usersData = await userDB.getUsers();
   return usersData;
+};
+const getUsersJson = async () => {
+  let usersData = await userJsonDAL.getUserData();
+  return usersData;
+};
+
+
+const postUsers = async (obj) => {
+  let id=await userDB.createUser(obj)
+  console.log(id);
+  let promise=await userJsonDAL.getUserData()
+
+  console.log(promise);
+  let users=promise.users
+  users.push({_id:id,name:obj.username,CreateDate:now(),expiresIn:"60m"})
+  await userJsonDAL.writeUserData({"users":[users]})
+
+
+  return id;
 };
 
 const login = async (obj) => {
@@ -25,6 +45,9 @@ user={_id:userj._id,
 
 
 module.exports = {
-  getUsers,
+  getUsersDB,
   login,
+  postUsers,
+  getUsersJson
+  
 };

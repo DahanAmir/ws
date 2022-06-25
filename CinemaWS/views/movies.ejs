@@ -6,8 +6,30 @@
 var token=sessionStorage["token"] 
 alert(token)
         //sessionStorage.setItem('token', token)
-        </script>
+        <script>
+
+function movies(){
+alert(sessionStorage["token"])
+    location.href = "/movies/?token="+sessionStorage["token"];
+}
+function subscription(){
+alert(sessionStorage["token"])
+    location.href = "/subscription/?token="+sessionStorage["token"];
+}
+
+function user(){
+alert(sessionStorage["token"])
+    location.href = "/user/?token="+sessionStorage["token"];
+}
+function logOut(){
+sessionStorage["token"]=''
+    location.href = "/auth";
+}
+
+
+</script>
     <body>
+        <button onclick="movies()">  <a  id="movies" >movies</a></button>  <button onclick="subscription()">subscription</button>  <button>user management</button> <button onclick="logOut()">log out</button> 
         <link rel='stylesheet' href='/stylesheets/style.css' />
 
         <h1>movies List</h1>

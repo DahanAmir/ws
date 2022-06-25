@@ -27,14 +27,12 @@ router.route("/:id").get(async function (req, resp) {
 
 router.route("/").post(async function (req, resp) {
   let obj = req.body;
-  console.log(obj);
 
   let status = await movieBL.createMovie(obj);
   return resp.json(status);
 });
 router.route("/").put(async function (req, resp) {
   let obj = req.body;
-  console.log(obj);
 
   let status = await movieBL.updateMovie(obj);
   return resp.json(status);

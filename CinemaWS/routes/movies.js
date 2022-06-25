@@ -9,6 +9,7 @@ const RSA_PRIVATE_KEY=secret.secret()
 
 router.get("/", async function (req, res, next) {
   token =  req.query.token 
+  let RSA_PRIVATE_KEY=secret.secret()
   var moviesData = await movieBL.getMovies();
 
 
@@ -18,10 +19,6 @@ router.get("/", async function (req, res, next) {
     
     jwt.verify(token, RSA_PRIVATE_KEY, function(err, data) 
     {
-        
-        console.log(data.id)
-
-  
         if (err)
         {
 

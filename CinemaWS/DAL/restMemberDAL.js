@@ -10,6 +10,11 @@ const getSubscriptions = () => {
 const getMember = (id) => {
   return axios.get("http://localhost:8000/api/member/" + id);
 };
+const deletMember = (id) => {
+  return axios.delete("http://localhost:8000/api/member/" + id);
+};
+
+
 const postMember = (obj) => {
   return axios({
     method: "post",
@@ -31,4 +36,5 @@ module.exports = {
   getMember,
   postMember,
   putMember,
+  deletMember
 };

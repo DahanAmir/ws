@@ -29,9 +29,7 @@ const member = async function () {
   let members = resp.data;
   let id;
   for (let index = 0; index < members.length; index++) {
-    console.log(members[index]);
     members[index].city = members[index].address.city;
-    console.log(members[index]);
     id = await memberBL.createMember(members[index]);
   }
   return id;

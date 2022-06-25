@@ -5,7 +5,7 @@
       "Fname": "Avi",
       "Lname": "David",
       "CreateDate": "2022-06-13",
-      "SessionTimeOut": "7200"
+      "SessionTimeOut": "72000"
     },
     {
       "_id": 2,

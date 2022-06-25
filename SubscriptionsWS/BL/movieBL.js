@@ -55,7 +55,7 @@ const getsubscriptions = async function () {
         from: "subscriptions",
         localField: "_id",
         foreignField: "movieId",
-        as: "movies",
+        as: "members",
       },
     },
   ]);

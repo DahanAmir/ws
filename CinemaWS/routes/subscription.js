@@ -10,7 +10,6 @@ router.get("/", async function (req, res, next) {
   console.log("membersData");
 
   let SubscriptionData = await SubscriptionBL.getMoviesByMembers();
-  console.log(SubscriptionData[1]);
   res.render("moviesByMembers", { subscription: SubscriptionData });
 });
 router.get("/addnewMember", async function (req, res, next) {

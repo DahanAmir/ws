@@ -1,21 +1,50 @@
 <html>
-    <script>
+<script>
 
-        
-    </script>
+function movies(){
+alert(sessionStorage["token"])
+    location.href = "/movies/?token="+sessionStorage["token"];
+}
+function subscription(){
+alert(sessionStorage["token"])
+    location.href = "/subscription/?token="+sessionStorage["token"];
+}
+
+function user(){
+alert(sessionStorage["token"])
+    location.href = "/user/?token="+sessionStorage["token"];
+}
+function logOut(){
+sessionStorage["token"]=''
+    location.href = "/auth";
+}
+
+
+</script>
     <body>
-        
+        <button onclick="movies()">  <a  id="movies" >movies</a></button>  <button onclick="subscription()">subscription</button>  <button>user management</button> <button onclick="logOut()">log out</button> 
         <h1>Users List</h1>
         <ul>
             <% subscription.forEach(function(sub) { %>
-                <li><a href="/members/editMember/<%= sub._id %>" ><%= sub.name %></a></li>
+                <h3><%= sub.name %></h3>
+
+                <h5>Email: <%= sub.email %></h5>
+                <h5>City: <%= sub.city %></h5>
+
+          <a href="/members/delete/<%= sub._id %>"> delete  </a>
+            
+                     <a href="/members/editMember/<%= sub._id %>" >edit</a>
+                <h2>Movies Watched</h2>
+                <a href="/members/subscribeNewMovie/<%= sub._id %>" >subscribe to new movie</a>
+
                 <% sub.movies.forEach(function(mov) { %>
-                    <h1>
-                        <%= mov.movieId.name %>
-                    </h1>
+                    <h5>
+                        <%= mov.movieId.name %>, <%= mov.date %> 
+                    </h5>
                   
                     
-                    <% }) %>   
+                    <% }) %> 
+                    <h5>====================</h5>
                     <% }) %>
         </ul>
     </body>

@@ -7,7 +7,7 @@ var app = express();
 
 var indexRouter = require("./routes/index");
 var membersRouter = require("./routes/members");
-var membersRouter = require("./routes/movies");
+var moviesRouter = require("./routes/movies");
 var subscriptionRouter = require("./routes/subscription");
 var authRouter = require("./routes/authController");
 
@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/members", membersRouter);
-app.use("/movies", membersRouter);
+app.use("/movies", moviesRouter);
 app.use("/auth", authRouter);
 app.use("/subscription", subscriptionRouter);
 

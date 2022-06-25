@@ -7,7 +7,6 @@ var ObjectId = require("mongoose").Types.ObjectId;
 
 router.route("/").get(async function (req, resp) {
   let users = await memberBL.getMembers();
-  console.log(users);
   //  let users = await memberBL.getMembers();
   return resp.json(users);
 });

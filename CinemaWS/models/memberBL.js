@@ -24,6 +24,10 @@ const putMember = async (obj) => {
   let resp = await restDAL.putMember(obj);
   return resp;
 };
+const deletMember = async (id) => {
+  let resp = await restDAL.deletMember(id);
+  return resp;
+};
 
 
 
@@ -33,4 +37,5 @@ module.exports = {
   getMember,
   postMember,
   putMember,
+  deletMember
 };

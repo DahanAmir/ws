@@ -5,24 +5,31 @@ var data = "<%= Data  %>"
 sessionStorage["token"] ="<%=Data.token%>"
 sessionStorage["id"] ="<%=Data._id%>"
 
-</script>
-<html>
-  <head>
- 
-  </head>
-  <body>
-    
-    <a href="/movies?token=<%=Data.token%>">
-      <button>members</button>
-   </a>
-   
-   <br>
-   <br>
 
-   <a href="/members?token=<%=Data.token%>">
-    <button>members</button>
- </a>
- <p id="source"></p>
+    function movies(){
+    alert(sessionStorage["token"])
+        location.href = "/movies/?token="+sessionStorage["token"];
+    }
+    function subscription(){
+    alert(sessionStorage["token"])
+        location.href = "/subscription/?token="+sessionStorage["token"];
+    }
+    
+    function user(){
+    alert(sessionStorage["token"])
+        location.href = "/user/?token="+sessionStorage["token"];
+    }
+    function logOut(){
+    sessionStorage["token"]=''
+        location.href = "/auth";
+    }
+    
+    
+    </script>
+    <html>
+        <body>
+          <button onclick="movies()">  <a  id="movies" >movies</a></button>  <button onclick="subscription()">subscription</button>  <button>user management</button> <button onclick="logOut()">log out</button> 
+
 
 
 

@@ -3,8 +3,8 @@ var express = require("express");
 var router = express.Router();
 const SubscriptionBL = require("../models/SubscriptionBL");
 const jwt = require("jsonwebtoken");
-const secret = require("../configs/secret")
-const RSA_PRIVATE_KEY=secret.secret()
+const secret = require("../configs/secret");
+const RSA_PRIVATE_KEY = secret.secret();
 /* GET members listing. */
 router.get("/", async function (req, res, next) {
   console.log("membersData");
@@ -41,7 +41,6 @@ router.get("/moviess", async function (req, res, next) {
 
   let membersData = await SubscriptionBL.getMoviesByMembers();
 
-  
   res.render("moviesByMembers", { members: membersData });
 });
 

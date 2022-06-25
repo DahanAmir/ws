@@ -29,13 +29,11 @@ const deletMember = async (id) => {
   return resp;
 };
 
-
-
 module.exports = {
   getSubscriptions,
   getMembers,
   getMember,
   postMember,
   putMember,
-  deletMember
+  deletMember,
 };

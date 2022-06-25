@@ -24,11 +24,14 @@ sessionStorage["id"] ="<%=Data._id%>"
         location.href = "/auth";
     }
     
-    
+    function userManagement(){
+    alert(sessionStorage["token"])
+        location.href = "/users/?token="+sessionStorage["token"];
+    }
     </script>
     <html>
         <body>
-          <button onclick="movies()">  <a  id="movies" >movies</a></button>  <button onclick="subscription()">subscription</button>  <button>user management</button> <button onclick="logOut()">log out</button> 
+          <button onclick="movies()">  <a  id="movies" >movies</a></button>  <button onclick="subscription()">subscription</button>  <button onclick="userManagement()">user management</button> <button onclick="logOut()">log out</button> 
 
 
 

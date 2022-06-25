@@ -40,5 +40,5 @@ module.exports = {
   getsubScriptionMovieId,
   putMovie,
   postScription,
-  getMoviesByMembers
+  getMoviesByMembers,
 };

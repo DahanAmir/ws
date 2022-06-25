@@ -1,4 +1,4 @@
 const secret = function () {
-    return"somekey1"
-  };
-  module.exports = {secret}
+  return "somekey1";
+};
+module.exports = { secret };

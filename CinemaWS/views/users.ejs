@@ -4,42 +4,47 @@
         
         
 var token=sessionStorage["token"] 
-alert(token)
-        //sessionStorage.setItem('token', token)
-        <script>
-
-function movies(){
-alert(sessionStorage["token"])
-    location.href = "/movies/?token="+sessionStorage["token"];
-}
-function subscription(){
-alert(sessionStorage["token"])
-    location.href = "/subscription/?token="+sessionStorage["token"];
-}
-
-function user(){
-alert(sessionStorage["token"])
-    location.href = "/user/?token="+sessionStorage["token"];
-}
-function logOut(){
-sessionStorage["token"]=''
-    location.href = "/auth";
-}
-
-
-</script>
-    <body>
-        <button onclick="movies()">  <a  id="movies" >movies</a></button>  <button onclick="subscription()">subscription</button>  <button>user management</button> <button onclick="logOut()">log out</button> 
+  
+            function movies(){
+        location.href = "/movies/?token="+token;
+    }
+    function subscription(){
+        location.href = "/subscription/?token="+token;
+    }
+    
+    function user(){
+        location.href = "/user/?token="+token;
+    }
+    function logOut(){
+    sessionStorage["token"]=''
+        location.href = "/auth";
+    }
+    
+    function userManagement(){
+        location.href = "/users/?token="+token;
+    }   
+    
+    
+    function addUser(){
+        location.href = "/users/addnewmovie/?token="+token;
+    }
+    </script>
+    <html>
+        <body>
+          <button onclick="movies()">  <a  id="movies" >movies</a></button>  <button onclick="subscription()">subscription</button>  <button onclick="userManagement()">user management</button> <button onclick="logOut()">log out</button> 
+          <br/><br/><br/>
+         <button onclick="userManagement()">All Users</button>  <button onclick="addUser()">add user</button>
         <link rel='stylesheet' href='/stylesheets/style.css' />
-
-        <h1>movies List</h1>
+    
+        <h1>Users List</h1>
         
             <% users.forEach(function(user) { %>
              <div class="card" >     Fname : <%= user.Fname %><br/>
                 lname : <%= user.Lname %><br/>
                 premiered :<%= user.CreateDate %><br/>
                 
-                <a class="btn btn-primary" href="/users/edituser/<%= user._id %>"  >editMovie</a>
+                <a class="btn btn-primary" href="/users/edituser/<%= user._id %>"  >edit User</a>
+                <a class="btn btn-primary" href="/users/deleteuser/<%= user._id %>"  >delete User</a>
               
             </div>
             

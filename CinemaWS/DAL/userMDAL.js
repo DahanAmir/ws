@@ -1,6 +1,5 @@
 const userModel = require("../mongoose/userModel");
 
-
 const deleteAll = async function () {
   userModel.find({}).remove().exec();
 };
@@ -37,7 +36,7 @@ const createUser = function (obj) {
       password: obj.password,
     });
 
-    user.save(function (err,data) {
+    user.save(function (err, data) {
       if (err) {
         reject(err);
       } else {

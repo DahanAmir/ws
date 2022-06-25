@@ -24,12 +24,11 @@ const getMoviesByMembers = () => {
   return axios.get("http://localhost:8000/api/subscription/MovieByMember");
 };
 
-
 module.exports = {
   getSubscriptions,
   getsubScriptionMovieId,
   getsubScriptionMemberId,
   deletesubScription,
   postScription,
-  getMoviesByMembers
+  getMoviesByMembers,
 };

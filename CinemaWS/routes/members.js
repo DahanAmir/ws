@@ -2,10 +2,10 @@ const { response } = require("express");
 var express = require("express");
 var router = express.Router();
 const memberBL = require("../models/memberBL");
-const SubscriptionBL= require("../models/SubscriptionBL");
+const SubscriptionBL = require("../models/SubscriptionBL");
 const jwt = require("jsonwebtoken");
-const secret = require("../configs/secret")
-const RSA_PRIVATE_KEY=secret.secret()
+const secret = require("../configs/secret");
+const RSA_PRIVATE_KEY = secret.secret();
 /* GET members listing. */
 router.get("/", async function (req, res, next) {
   var membersData = await memberBL.getMembers();
@@ -18,7 +18,6 @@ router.get("/:id", async function (req, res, next) {
   let memberData = await memberBL.getMember(id);
   res.render("member", { member: memberData });
 });
-
 
 router.get("/delete/:id", async function (req, res, next) {
   console.log("delete");

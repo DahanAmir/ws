@@ -4,7 +4,6 @@ const getMovies = async () => {
   let resp = await restDAL.getMovies();
   let moviesData = resp.data;
 
-
   return moviesData;
 };
 const getSubscriptions = async () => {

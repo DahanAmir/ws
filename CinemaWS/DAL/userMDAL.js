@@ -15,6 +15,17 @@ const getUsers = async function () {
     });
   });
 };
+const getUserId = async function (id) {
+  return new Promise((resolve, reject) => {
+    userModel.find({ id }, function (err, data) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+};
 const login = function (obj) {
   return new Promise((resolve, reject) => {
     userModel.find({}, function (err, data) {
@@ -83,4 +94,5 @@ module.exports = {
   updateUser,
   getUsers,
   createUser,
+  getUserId,
 };

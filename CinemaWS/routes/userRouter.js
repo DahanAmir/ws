@@ -4,6 +4,8 @@ var router = express.Router();
 const userBL = require("../models/userBL");
 const jwt = require("jsonwebtoken");
 const secret = require("../configs/secret");
+const mongoose = require("mongoose");
+
 const RSA_PRIVATE_KEY = secret.secret();
 
 router.get("/", async function (req, res, next) {
@@ -28,30 +30,46 @@ router.get("/", async function (req, res, next) {
 router.get("/addnewmovie", async function (req, res, next) {
   token = req.query.token;
   let RSA_PRIVATE_KEY = secret.secret();
-  res.render("createAccount",{token,token});
+  res.render("createAccount", { token, token });
 });
 
 router.get("/:id", async function (req, res, next) {
   let id = req.params.id;
-  let movieData = await movieBL.getMovie(id);
+  let movieData = await userBL.getUserId(id);
   res.render("movie", { movie: movieData });
 });
 router.get("/edituser/:id", async function (req, res, next) {
   let id = req.params.id;
-  let movieData = await movieBL.getMovie(id);
-  res.render("editmovie", { movie: movieData });
+  let userData = await userBL.getUserId(id);
+  res.render("editUser", { user: userData });
 });
 router.post("/savedata", async function (req, res, next) {
   token = req.query.token;
   let obj = req.body;
-  obj = {
-    username: req.body.username,
-    password: req.body.password,
-  };
+  updateUser={
+    _id:obj._id,
+    Fname:obj.Fname,
+    username:obj.username,
+    Lname:obj.Lname,
+    CreateDate:obj.CreateDate,
+    SessionTimeOut:obj.SessionTimeOut,
+    Permissions:[obj["0"],obj["1"],obj["2"],obj["3"],obj["4"],obj["5"],obj["6"],obj["7"],]
+    
 
-  await userBL.postUsers(obj);
-  res.redirect("http://localhost:3000/users/?token="+token);
+  }
+  console.log(obj);
 
+  console.log(updateUser);
+
+
+  
+  //obj = {
+ //   username: req.body.username,
+ //   password: req.body.password,
+ // };
+
+  ///await userBL.postUsers(obj);
+ // res.redirect("http://localhost:3000/users/?token=" + token);
 });
 
 module.exports = router;

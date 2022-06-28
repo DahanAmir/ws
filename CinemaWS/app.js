@@ -6,11 +6,11 @@ var logger = require("morgan");
 var app = express();
 
 var indexRouter = require("./routes/index");
-var membersRouter = require("./routes/members");
-var moviesRouter = require("./routes/movies");
-var subscriptionRouter = require("./routes/subscription");
+var membersRouter = require("./routes/memberRouter");
+var moviesRouter = require("./routes/movieRouter");
+var subscriptionRouter = require("./routes/subscriptionRouter");
 var authRouter = require("./routes/authController");
-var usersRouter = require("./routes/users");
+var usersRouter = require("./routes/userRouter");
 
 require("./configs/database");
 

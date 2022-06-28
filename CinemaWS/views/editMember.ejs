@@ -1,8 +1,40 @@
-<html>
-    <body>
+<script>
 
+    var data = "<%= Data  %>"
+    sessionStorage["token"] ="<%=Data.token%>"
+    sessionStorage["id"] ="<%=Data._id%>"
+    
+    
+        function movies(){
+        alert(sessionStorage["token"])
+            location.href = "/movies/?token="+sessionStorage["token"];
+        }
+        function subscription(){
+        alert(sessionStorage["token"])
+            location.href = "/subscription/?token="+sessionStorage["token"];
+        }
+        
+        function user(){
+        alert(sessionStorage["token"])
+            location.href = "/user/?token="+sessionStorage["token"];
+        }
+        function logOut(){
+        sessionStorage["token"]=''
+            location.href = "/auth";
+        }
+        
+        function userManagement(){
+        alert(sessionStorage["token"])
+            location.href = "/users/?token="+sessionStorage["token"];
+        }
+        </script>
+        <html>
+            <body>
+              <button onclick="movies()">  <a  id="movies" >movies</a></button>  <button onclick="subscription()">subscription</button>  <button onclick="userManagement()">user management</button> <button onclick="logOut()">log out</button> 
+    
         <form action="/members/savedata" method="POST">
-Add new Member
+ Edit Member
+
 <br>
             <input  type="hidden" name="_id" value="<%= member._id %>"><br/>
             Full Name : <input type="text" name="name" value="<%= member.name %>"><br/>

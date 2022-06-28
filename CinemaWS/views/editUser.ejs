@@ -1,0 +1,73 @@
+<script>
+
+    var data = "<%= Data  %>"
+    sessionStorage["token"] ="<%=Data.token%>"
+    sessionStorage["id"] ="<%=Data._id%>"
+    
+    
+        function movies(){
+        alert(sessionStorage["token"])
+            location.href = "/movies/?token="+sessionStorage["token"];
+        }
+        function subscription(){
+        alert(sessionStorage["token"])
+            location.href = "/subscription/?token="+sessionStorage["token"];
+        }
+        
+        function user(){
+        alert(sessionStorage["token"])
+            location.href = "/user/?token="+sessionStorage["token"];
+        }
+        function logOut(){
+        sessionStorage["token"]=''
+            location.href = "/auth";
+        }
+        
+        function userManagement(){
+        alert(sessionStorage["token"])
+            location.href = "/users/?token="+sessionStorage["token"];
+        }
+        </script>
+        <html>
+            <body>
+              <button onclick="movies()">  <a  id="movies" >movies</a></button>  <button onclick="subscription()">subscription</button>  <button onclick="userManagement()">user management</button> <button onclick="logOut()">log out</button> 
+    
+        <form action="/users/savedata" method="POST">
+Edit User
+<br>
+            <input  type="hidden" name="id" value="<%= user.id %>"><br/>
+            username : <input type="text" name="username" value="<%= user.username %>"><br/>
+            Fname : <input type="text" name="Fname" value="<%= user.Fname %>"><br/>
+            Lname : <input type="text" name="Lname" value="<%= user.Lname %>"><br/>
+            CreateDate : <input readonly type="text" name="CreateDate" value="<%= user.CreateDate %>"  ><br/>
+            SessionTimeOut : <input type="text" name="SessionTimeOut" value="<%= user.SessionTimeOut %>"><br/>
+            <label class="container">View Subscriptions
+                <input type="checkbox" checked="<%= user.Permissions[0] %>" name=0 >
+                <br/>
+                <label class="container">vehCreate Subscriptionsicle
+                    <input type="checkbox" checked="<%= user.Permissions[1] %>" name=1>
+                    <br/>
+                    <label class="container">Delete Subscriptions
+                        <input type="checkbox" checked="<%= user.Permissions[2] %>" name=2>
+                        <br/>
+                        <label class="container">Update Subscription
+                            <input type="checkbox" checked="<%= user.Permissions[3] %>" name="3">
+                            <br/>
+                            <label class="container">View Movies
+                                <input type="checkbox" checked="<%= user.Permissions[4] %>" name="4">
+                                <br/>
+                                <label class="container">Create Movies
+                                    <input type="checkbox" checked="<%= user.Permissions[5] %>" name="5">
+                                    <br/>
+                                    <label class="container">Delete Movies
+                                        <input type="checkbox" checked="<%= user.Permissions[6] %>" name="6">
+                                        <br/>
+                                        <label class="container">Update Movie
+                                            <input type="checkbox" checked="<%=user.Permissions[7] %>[7] %>" name="7">
+                                            <br/>
+                                            
+                                            <input type="submit" value="Save">
+        </form>
+
+    </body>
+</html>

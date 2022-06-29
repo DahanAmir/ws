@@ -46,30 +46,34 @@ router.get("/edituser/:id", async function (req, res, next) {
 router.post("/savedata", async function (req, res, next) {
   token = req.query.token;
   let obj = req.body;
-  updateUser={
-    _id:obj._id,
-    Fname:obj.Fname,
-    username:obj.username,
-    Lname:obj.Lname,
-    CreateDate:obj.CreateDate,
-    SessionTimeOut:obj.SessionTimeOut,
-    Permissions:[obj["0"],obj["1"],obj["2"],obj["3"],obj["4"],obj["5"],obj["6"],obj["7"],]
-    
 
-  }
-  console.log(obj);
+  updateUser = {
+    _id: obj.id,
+    Fname: obj.Fname,
+    username: obj.username,
+    Lname: obj.Lname,
+    CreateDate: obj.CreateDate,
+    SessionTimeOut: obj.SessionTimeOut,
+    Permissions: [
+      obj["0"],
+      obj["1"],
+      obj["2"],
+      obj["3"],
+      obj["4"],
+      obj["5"],
+      obj["6"],
+      obj["7"],
+    ],
+  };
+  await userBL.updateUser(updateUser);
 
-  console.log(updateUser);
-
-
-  
   //obj = {
- //   username: req.body.username,
- //   password: req.body.password,
- // };
+  //   username: req.body.username,
+  //   password: req.body.password,
+  // };
 
   ///await userBL.postUsers(obj);
- // res.redirect("http://localhost:3000/users/?token=" + token);
+  // res.redirect("http://localhost:3000/users/?token=" + token);
 });
 
 module.exports = router;

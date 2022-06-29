@@ -1,0 +1,21 @@
+{
+  "Permissions": [
+    {
+      "_id": "62a897a6c62818bb6bab5ae8",
+      "Permissions": ["", "on", "", "on", "off", "on", "on", "off"]
+    },
+    {
+      "_id": "62b73eb0af3b4511eb1c4dca",
+      "Permissions": [true, true, true, true, true, true, true, true]
+    },
+    {
+      "_id": "62b73e08dd3211da29e66996",
+      "Permissions": [true, true, true, true, true, true, true, true]
+    },
+    {
+      "_id": "62bb4b8776a46eaa9623e69f",
+      "Permissions": [true, true, true, true, true, true, true, true]
+    },
+    { "_id": "62bb579a415a36d1671cfefd", "Permissions": [] }
+  ]
+}

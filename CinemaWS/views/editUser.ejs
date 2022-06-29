@@ -41,31 +41,67 @@ Edit User
             Lname : <input type="text" name="Lname" value="<%= user.Lname %>"><br/>
             CreateDate : <input readonly type="text" name="CreateDate" value="<%= user.CreateDate %>"  ><br/>
             SessionTimeOut : <input type="text" name="SessionTimeOut" value="<%= user.SessionTimeOut %>"><br/>
+           
             <label class="container">View Subscriptions
-                <input type="checkbox" checked="<%= user.Permissions[0] %>" name=0 >
+                <% if(user.Permissions[0]){ %>
+                    <input type="checkbox" checked name=0 >
+                  <% } else{ %>  
+                    <input type="checkbox"  name=0 >
+                 <% } %>
+
+
+          
+             
                 <br/>
                 <label class="container">vehCreate Subscriptionsicle
-                    <input type="checkbox" checked="<%= user.Permissions[1] %>" name=1>
+                    <% if(user.Permissions[1]=='on'){ %>
+                        <input type="checkbox" checked name=1 >
+                      <% } else{ %>  
+                        <input type="checkbox"  name=1 >
+                     <% } %>
                     <br/>
                     <label class="container">Delete Subscriptions
-                        <input type="checkbox" checked="<%= user.Permissions[2] %>" name=2>
+                        <% if(user.Permissions[2]=='on'){ %>
+                            <input type="checkbox" checked name=2 >
+                          <% } else{ %>  
+                            <input type="checkbox"  name=2 >
+                         <% } %>
                         <br/>
                         <label class="container">Update Subscription
-                            <input type="checkbox" checked="<%= user.Permissions[3] %>" name="3">
+                            <% if(user.Permissions[3]=='on'){ %>
+                                <input type="checkbox" checked name=3 >
+                              <% } else{ %>  
+                                <input type="checkbox"  name=3 >
+                             <% } %>
                             <br/>
                             <label class="container">View Movies
-                                <input type="checkbox" checked="<%= user.Permissions[4] %>" name="4">
+                                <% if(user.Permissions[4]=='on'){ %>
+                                    <input type="checkbox" checked name=4 >
+                                  <% } else{ %>  
+                                    <input type="checkbox"  name=4 >
+                                 <% } %>
                                 <br/>
                                 <label class="container">Create Movies
-                                    <input type="checkbox" checked="<%= user.Permissions[5] %>" name="5">
+                                    <% if(user.Permissions[5]=='on'){ %>
+                                        <input type="checkbox" checked name=5 >
+                                      <% } else{ %>  
+                                        <input type="checkbox"  name=5 >
+                                     <% } %>
                                     <br/>
                                     <label class="container">Delete Movies
-                                        <input type="checkbox" checked="<%= user.Permissions[6] %>" name="6">
+                                        <% if(user.Permissions[6]=='on'){ %>
+                                            <input type="checkbox" checked name=6 >
+                                          <% } else{ %>  
+                                            <input type="checkbox"  name=6 >
+                                         <% } %>
                                         <br/>
                                         <label class="container">Update Movie
-                                            <input type="checkbox" checked="<%=user.Permissions[7] %>[7] %>" name="7">
-                                            <br/>
-                                            
+                                            <% if(user.Permissions[7]=='on'){ %>
+                                                <input type="checkbox" checked name=7 >
+                                              <% } else{ %>  
+                                                <input type="checkbox"  name=7>
+                                             <% } %>
+                                  
                                             <input type="submit" value="Save">
         </form>
 

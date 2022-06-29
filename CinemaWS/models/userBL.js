@@ -1,6 +1,6 @@
 const userDB = require("../DAL/userMDAL");
 const userJsonDAL = require("../DAL/userJsonDAL");
-
+const mongoose = require("mongoose");
 const permissionsDAL = require("../DAL/userPermissionsDAL");
 const { now } = require("mongoose");
 
@@ -20,7 +20,7 @@ const postUsers = async (obj) => {
   let user = {
     _id: id,
     Fname: obj.username,
-    Lname:'',
+    Lname: "",
     CreateDate: now().toLocaleDateString("he-IL"),
     expiresIn: "60m",
   };
@@ -29,7 +29,7 @@ const postUsers = async (obj) => {
   let permissionsData = await permissionsDAL.getUserPermissions();
   let permissions = permissionsData.Permissions;
   let userPermissions = {
-    id: id,
+    _id: id,
     Permissions: [],
   };
   permissions.push(userPermissions);
@@ -56,22 +56,52 @@ const login = async (obj) => {
   return user;
 };
 const getUserId = async (id) => {
-  let user={}
-  user.id=id
+  let user = {};
+  user.id = id;
   let usersData = await userDB.getUsers();
   let usermongo = usersData.find((x) => x._id == id);
-  user.username=usermongo.username
+  user.username = usermongo.username;
   let userjson = await userJsonDAL.getUserData();
   userjson = userjson.users;
-  userj = userjson.find((x) => x._id == id);
-  user.Fname=userj.Fname
-  user.Lname=userj.Lname
-  user.CreateDate=userj.CreateDate
-  user.SessionTimeOut=userj.SessionTimeOut
+  let userj = userjson.find((x) => x._id == id);
+  user.Fname = userj.Fname;
+  user.Lname = userj.Lname;
+  user.CreateDate = userj.CreateDate;
+  user.SessionTimeOut = userj.SessionTimeOut;
   let permissionsData = await permissionsDAL.getUserPermissions();
   let permissions = permissionsData.Permissions;
-  permissionsUser=permissions.find(x=>x.id=id)
-  user.Permissions=permissionsUser.Permissions
+
+  permissionsUser = permissions.filter((x) => x._id == id);
+
+  user.Permissions = permissionsUser[0].Permissions;
+  return user;
+};
+
+const updateUser = async (obj) => {
+  user = {
+    _id: mongoose.Types.ObjectId(obj._id),
+    username: obj.username,
+    password: obj.password,
+  };
+  await userDB.updateUser(user);
+  let userjson = await userJsonDAL.getUserData();
+  userjson = userjson.users;
+  userjson = userjson.filter((x) => x._id != obj._id);
+  user = {
+    _id: obj._id,
+    Fname: obj.Fname,
+    Lname: obj.Lname,
+    CreateDate: obj.CreateDate,
+    SessionTimeOut: obj.SessionTimeOut,
+  };
+  userjson.push(user);
+  await userJsonDAL.writeUserData({ users: userjson });
+  let permissionsData = await permissionsDAL.getUserPermissions();
+  let permissions = permissionsData.Permissions;
+  permissions = permissions.filter((x) => x._id != obj._id);
+  user = { _id: obj._id, Permissions: obj.Permissions };
+  permissions.push(user);
+  await permissionsDAL.writeUserPermissions({ Permissions: permissions });
   return user;
 };
 
@@ -81,4 +111,5 @@ module.exports = {
   postUsers,
   getUsersJson,
   getUserId,
+  updateUser,
 };

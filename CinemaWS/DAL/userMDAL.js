@@ -57,22 +57,15 @@ const createUser = function (obj) {
   });
 };
 
-const updateUser = function (id, obj) {
+const updateUser = function (obj) {
   return new Promise((resolve, reject) => {
-    userModel.findByIdAndUpdate(
-      id,
-      {
-        userName: obj.userName,
-        password: obj.password,
-      },
-      function (err) {
-        if (err) {
-          reject(err.message);
-        } else {
-          resolve("Updated !!");
-        }
+    userModel.findByIdAndUpdate(obj._id, obj, function (err) {
+      if (err) {
+        reject(err.message);
+      } else {
+        resolve("Updated !!");
       }
-    );
+    });
   });
 };
 

@@ -23,7 +23,8 @@ router.post("/login", async function (req, res) {
     Data = { token: tokenData, _id: user._id };
 
     // res.JSON('token', JSON.stringify( tokenData )); //use encrypted token
-    res.render("main", { Data: Data });
+    return res.json(Data);
+    //res.render("main", { Data: Data });
     ///res.status(200).send({  token: tokenData });
 
     ///res.status(200).send({ token: tokenData });

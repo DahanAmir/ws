@@ -20,25 +20,22 @@ router.route("/").get(async function (req, resp) {
 router.route("/MovieByMember").get(async function (req, resp) {
   let movies1 = await movieBL.getMovies();
   let members = await memberBL.getsubscriptions();
-  var obj=[]
+  var obj = [];
   members.forEach((element) => {
     if (element.movies.length != 0) {
       element.movies.forEach((x) => {
         movies1.forEach((y) => {
           if (y._id.toString() == x.movieId.toString()) {
             x.movieId = y;
-            x.date= x.date.toLocaleDateString('he-IL')
+            x.date = x.date.toLocaleDateString("he-IL");
             delete x._id;
-           delete x.memberId;
+            delete x.memberId;
           }
         });
       });
-      obj.push(element)
-    } 
- 
-
+      obj.push(element);
+    }
   });
- 
 
   return resp.json(obj);
 });
@@ -46,32 +43,25 @@ router.route("/MovieByMember").get(async function (req, resp) {
 router.route("/MemberByMovie").get(async function (req, resp) {
   let allmembers = await memberBL.getMembers();
   let memberByMovie = await movieBL.getsubscriptions();
-  var obj=[]
+  var obj = [];
   memberByMovie.forEach((element) => {
-
     if (element.members.length != 0) {
       element.members.forEach((x) => {
         allmembers.forEach((y) => {
           if (y._id.toString() == x.memberId.toString()) {
             x.memberId = y;
-            x.date= x.date.toLocaleDateString('he-IL')
-                 delete x._id;
-           delete x.movieId;
+            x.date = x.date.toLocaleDateString("he-IL");
+            delete x._id;
+            delete x.movieId;
           }
         });
       });
-      obj.push(element)
-    } 
- 
-
+      obj.push(element);
+    }
   });
- 
 
   return resp.json(obj);
 });
-
-
- 
 
 router.route("/memberId/:id").get(async function (req, resp) {
   let id = req.params.id;

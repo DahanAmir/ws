@@ -1,6 +1,6 @@
-const movieBL = require("./movieBL");
-const memberBL = require("./memberBL");
-const subscriptionBL = require("./subscriptionBL");
+const movieBL = require("../mongoosQuery/movieBL");
+const memberBL = require("../mongoosQuery/memberBL");
+const subscriptionBL = require("../mongoosQuery/subscriptionBL");
 const memberDAL = require("../DAL/memberDAL");
 const movieDAL = require("../DAL/movieDAL");
 const { now } = require("mongoose");

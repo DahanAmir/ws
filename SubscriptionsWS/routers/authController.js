@@ -1,20 +1,15 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
 const userBL = require("../BL/userBL");
 var router = express.Router();
+const jwt =require("jsonwebtoken")
 
 router.post("/login", async function (req, res) {
   const username = req.body.username;
   const password = req.body.password;
-  console.log(password, "password");
-
-  console.log(username, "username");
-
   if (!username || !password) {
     res.sendStatus(401);
   } else {
-    var user = await userBL.login(username, password);
-    console.log(user, "asdasdasdasdasd");
+   var user = await userBL.login(username,password);
 
     if (user) {
       //  const userId = findUserIdForUserName(username);

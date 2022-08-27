@@ -1,7 +1,7 @@
 const express = require("express");
-const subscriptionBL = require("../mongoosQuery/subscriptionBL");
-const memberBL = require("../mongoosQuery/memberBL");
-const movieBL = require("../mongoosQuery/movieBL");
+const subscriptionMQ = require("../mongoosQuery/subscriptionMQ");
+const memberMQ = require("../mongoosQuery/memberMQ");
+const movieMQ = require("../mongoosQuery/movieMQ");
 const router = express.Router();
 const mongoose = require("mongoose");
 var ObjectId = require("mongoose").Types.ObjectId;
@@ -12,14 +12,14 @@ var groupBy = function (xs, key) {
   }, {});
 };
 router.route("/").get(async function (req, resp) {
-  let subscrip = await subscriptionBL.getSubscripts();
+  let subscrip = await subscriptionMQ.getSubscripts();
 
-  //  let subscrip = await subscriptionBL.getSubscripts();
+  //  let subscrip = await subscriptionMQ.getSubscripts();
   return resp.json(subscrip);
 });
 router.route("/MovieByMember").get(async function (req, resp) {
-  let movies1 = await movieBL.getMovies();
-  let members = await memberBL.getsubscriptions();
+  let movies1 = await movieMQ.getMovies();
+  let members = await memberMQ.getsubscriptions();
   var obj = [];
   members.forEach((element) => {
     if (element.movies.length != 0) {
@@ -41,8 +41,8 @@ router.route("/MovieByMember").get(async function (req, resp) {
 });
 
 router.route("/MemberByMovie").get(async function (req, resp) {
-  let allmembers = await memberBL.getMembers();
-  let memberByMovie = await movieBL.getsubscriptions();
+  let allmembers = await memberMQ.getMembers();
+  let memberByMovie = await movieMQ.getsubscriptions();
   var obj = [];
   memberByMovie.forEach((element) => {
     if (element.members.length != 0) {
@@ -68,7 +68,7 @@ router.route("/memberId/:id").get(async function (req, resp) {
   if (ObjectId.isValid(id)) {
     memberId = mongoose.Types.ObjectId(id);
     query = { memberId: memberId };
-    let member = await subscriptionBL.getquery(query);
+    let member = await subscriptionMQ.getquery(query);
     return resp.json(member);
   } else {
     return resp.json("is not objectId");
@@ -79,7 +79,7 @@ router.route("/movieId/:id").get(async function (req, resp) {
   if (ObjectId.isValid(id)) {
     movieId = mongoose.Types.ObjectId(id);
     query = { movieId: movieId };
-    let movies = await subscriptionBL.getquery(query);
+    let movies = await subscriptionMQ.getquery(query);
     return resp.json(movies);
   } else {
     return resp.json("is not objectId");
@@ -89,7 +89,7 @@ router.route("/:id").delete(async function (req, resp) {
   let id = req.params.id;
   if (ObjectId.isValid(id)) {
     id = mongoose.Types.ObjectId(id);
-    let status = await subscriptionBL.deleteSubscript(id);
+    let status = await subscriptionMQ.deleteSubscript(id);
     return resp.json(status);
   } else {
     return resp.json(subscrips);
@@ -99,7 +99,7 @@ router.route("/:id").delete(async function (req, resp) {
 
 router.route("/").post(async function (req, resp) {
   let obj = req.body;
-  let status = await subscriptionBL.createSubscript(obj);
+  let status = await subscriptionMQ.createSubscript(obj);
   return resp.json(status);
 });
 

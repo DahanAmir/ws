@@ -43,7 +43,11 @@ const start = async function () {
   mem = await memberMQ.getMembers();
   mov = await movieMQ.getMovies();
   for (let index = 0; index < mem.length; index++) {
-    let obj = { movieId: mov[index]._id, memberId: mem[index]._id, date: now() };
+    let obj = {
+      movieId: mov[index]._id,
+      memberId: mem[index]._id,
+      date: now(),
+    };
     await subscriptionMQ.createSubscript(obj);
     obj = {
       movieId: mov[index + 1]._id,
@@ -58,8 +62,6 @@ const start = async function () {
     };
     await subscriptionMQ.createSubscript(obj);
   }
-
- 
 
   //movie = await movieMQ.getmMvie(idmovie);
   //await subscriptionMQ.addSubscriptMovie(idmember, movie);

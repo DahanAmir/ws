@@ -44,22 +44,21 @@ router.route("/MovieByMember").get(async function (req, resp) {
 
 router.route("/MemberByMovie").get(async function (req, resp) {
   let allmembers = await memberMQ.getMembers();
-  let movies = await movieMQ.getMovies()
+  let movies = await movieMQ.getMovies();
   let memberByMovie = await movieMQ.getsubscriptions();
   var obj = [];
   memberByMovie.forEach((element) => {
     if (element.members.length != 0) {
       element.members.forEach((x) => {
         allmembers.forEach((y) => {
-          if(x.memberId){
-          if (y._id.toString() == x.memberId.toString()) {
-            x.memberId = y;
-            x.date = x.date.toLocaleDateString("he-IL");
-            delete x._id;
-            delete x.movieId;
+          if (x.memberId) {
+            if (y._id.toString() == x.memberId.toString()) {
+              x.memberId = y;
+              x.date = x.date.toLocaleDateString("he-IL");
+              delete x._id;
+              delete x.movieId;
+            }
           }
-        }
-    
         });
       });
       obj.push(element);
@@ -77,34 +76,29 @@ router.route("/MemberByMovies").get(async function (req, resp) {
     if (element.members.length != 0) {
       element.members.forEach((x) => {
         allmembers.forEach((y) => {
-          if(x.memberId){
-          if (y._id.toString() == x.memberId.toString()) {
-            x.memberId = y;
-            x.date = x.date.toLocaleDateString("he-IL");
-            delete x._id;
-            delete x.movieId;
+          if (x.memberId) {
+            if (y._id.toString() == x.memberId.toString()) {
+              x.memberId = y;
+              x.date = x.date.toLocaleDateString("he-IL");
+              delete x._id;
+              delete x.movieId;
+            }
           }
-        }
-    
         });
       });
       obj.push(element);
     }
   });
 
-  let moveis=await movieMQ.getMovies()
-  
+  let moveis = await movieMQ.getMovies();
 
-  obj.push(moveis.map(x=>{
-  if(obj.some(y=>y._id!=x._id))
-  {
-    return x
-  }
-     
-  }))
-
-  
-
+  obj.push(
+    moveis.map((x) => {
+      if (obj.some((y) => y._id != x._id)) {
+        return x;
+      }
+    })
+  );
 
   return resp.json(obj);
 });

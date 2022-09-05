@@ -8,8 +8,7 @@ const movieRouter = require("./routers/movieRouter");
 const authController = require("./routers/authController");
 
 let app = express();
-const cors = require('cors');
-
+const cors = require("cors");
 
 app.use(cors());
 require("./configs/database");

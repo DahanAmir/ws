@@ -1,4 +1,4 @@
-const userDAL = require("../DAL/userDAL");
+const userDAL = require("../mongoosQuery/userMQ");
 
 
 const login = async (username,password)  =>{

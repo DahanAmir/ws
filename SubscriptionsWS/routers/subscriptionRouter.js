@@ -20,6 +20,8 @@ router.route("/").get(async function (req, resp) {
 router.route("/MovieByMember").get(async function (req, resp) {
   let movies1 = await movieMQ.getMovies();
   let members = await memberMQ.getsubscriptions();
+  console.log(members);
+
   var obj = [];
   members.forEach((element) => {
     if (element.movies.length != 0) {
@@ -42,23 +44,67 @@ router.route("/MovieByMember").get(async function (req, resp) {
 
 router.route("/MemberByMovie").get(async function (req, resp) {
   let allmembers = await memberMQ.getMembers();
+  let movies = await movieMQ.getMovies()
   let memberByMovie = await movieMQ.getsubscriptions();
   var obj = [];
   memberByMovie.forEach((element) => {
     if (element.members.length != 0) {
       element.members.forEach((x) => {
         allmembers.forEach((y) => {
+          if(x.memberId){
           if (y._id.toString() == x.memberId.toString()) {
             x.memberId = y;
             x.date = x.date.toLocaleDateString("he-IL");
             delete x._id;
             delete x.movieId;
           }
+        }
+    
         });
       });
       obj.push(element);
     }
   });
+
+  return resp.json(obj);
+});
+
+router.route("/MemberByMovies").get(async function (req, resp) {
+  let allmembers = await memberMQ.getMembers();
+  let memberByMovie = await movieMQ.getsubscriptions();
+  var obj = [];
+  memberByMovie.forEach((element) => {
+    if (element.members.length != 0) {
+      element.members.forEach((x) => {
+        allmembers.forEach((y) => {
+          if(x.memberId){
+          if (y._id.toString() == x.memberId.toString()) {
+            x.memberId = y;
+            x.date = x.date.toLocaleDateString("he-IL");
+            delete x._id;
+            delete x.movieId;
+          }
+        }
+    
+        });
+      });
+      obj.push(element);
+    }
+  });
+
+  let moveis=await movieMQ.getMovies()
+  
+
+  obj.push(moveis.map(x=>{
+  if(obj.some(y=>y._id!=x._id))
+  {
+    return x
+  }
+     
+  }))
+
+  
+
 
   return resp.json(obj);
 });

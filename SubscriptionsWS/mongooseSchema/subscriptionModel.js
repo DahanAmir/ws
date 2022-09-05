@@ -8,7 +8,6 @@ var SubscriptionSchema = new mongoose.Schema({
   },
   memberId: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
     ref: "members",
   },
   date: { type: Date, default: Date.now },

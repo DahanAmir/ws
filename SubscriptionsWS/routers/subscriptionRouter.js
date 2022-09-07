@@ -42,7 +42,7 @@ router.route("/MovieByMember").get(async function (req, resp) {
   return resp.json(obj);
 });
 
-router.route("/MemberByMovie").get(async function (req, resp) {
+router.route("/MemberByMovies").get(async function (req, resp) {
   let allmembers = await memberMQ.getMembers();
   let movies = await movieMQ.getMovies();
   let memberByMovie = await movieMQ.getsubscriptions();
@@ -68,7 +68,7 @@ router.route("/MemberByMovie").get(async function (req, resp) {
   return resp.json(obj);
 });
 
-router.route("/MemberByMovies").get(async function (req, resp) {
+router.route("/MemberByMovie").get(async function (req, resp) {
   let allmembers = await memberMQ.getMembers();
   let memberByMovie = await movieMQ.getsubscriptions();
   var obj = [];
@@ -89,18 +89,16 @@ router.route("/MemberByMovies").get(async function (req, resp) {
       obj.push(element);
     }
   });
-
   let moveis = await movieMQ.getMovies();
+  let moviesNonMembers = [];
 
-  obj.push(
-    moveis.map((x) => {
-      if (obj.some((y) => y._id != x._id)) {
-        return x;
-      }
-    })
-  );
+  moveis.map((x) => {
+    if (obj.some((y) => y._id != x._id)) {
+      moviesNonMembers.push(x);
+    }
+  });
 
-  return resp.json(obj);
+  return resp.json(obj.concat(moviesNonMembers));
 });
 
 router.route("/memberId/:id").get(async function (req, resp) {

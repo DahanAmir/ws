@@ -13,7 +13,7 @@ const movies = async function () {
       name: x.name,
       genres: x.genres,
       image: x.image.medium,
-      premiered: x.premiered,
+      premiered: x.premiered.slice(0, 10),
     };
   });
 

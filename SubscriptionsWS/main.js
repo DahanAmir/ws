@@ -24,4 +24,4 @@ app.listen(8000);
 const onload = async () => {
   await onloadBL.start();
 };
-//onload();
+onload();

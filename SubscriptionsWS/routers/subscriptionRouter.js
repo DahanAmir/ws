@@ -92,9 +92,10 @@ router.route("/MemberByMovie").get(async function (req, resp) {
   let moveis = await movieMQ.getMovies();
   let moviesNonMembers = [];
 
-  moveis.map((x) => {
-    if (obj.some((y) => y._id != x._id)) {
-      moviesNonMembers.push(x);
+  moveis.forEach((x) => {
+    if (obj.some(y=>y._id==x._id))
+    {
+      moviesNonMembers.push(x)
     }
   });
 
